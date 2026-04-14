@@ -139,15 +139,7 @@ dump.rdb
 *_key.pem
 private*.pem
 
-# =============================================================================
-# AI CONTROL CONFIGURATION
-# Managed by ai-control-harness deployment system
-# See: /home/user0/ai-control-harness/docs/PROJECT-CONFIGURATION-WORKFLOW.md
-# =============================================================================
-
-# IMPORTANT: .claude has NO trailing slash to handle symlinks correctly
-# ai-control-init symlinks .claude -> ai-control-config/projects/<name>/
-# A trailing slash would break symlink ignoring in some git versions
+# claude code basics
 .claude
 .claude.backup*
 .claude.local/
