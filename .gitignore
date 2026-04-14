@@ -1,0 +1,164 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor temp files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+*.sublime-*
+
+# Build outputs
+*.pdf
+*.png
+*.jpg
+*.jpeg
+
+# LaTeX intermediate files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Pandoc temp files
+texput.tex
+
+# Working/debug files
+debug.txt
+*.debug
+
+# Assessment work in progress (keep templates, ignore active drafts)
+/active-assessments/
+
+# Deliverables (generated, should not be in source control)
+/deliverables/
+
+# Node/Python if added later
+node_modules/
+__pycache__/
+*.pyc
+
+# =============================================================================
+# SECRETS AND CREDENTIALS - NEVER COMMIT
+# =============================================================================
+
+# Environment variables and local configs
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.envrc
+.secrets
+secrets.*
+credentials.*
+
+# SSH keys
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+id_ecdsa
+id_ecdsa.pub
+id_dsa
+id_dsa.pub
+.ssh/
+
+# GPG keys
+*.gpg
+*.pgp
+.gnupg/
+
+# Certificates and keystores
+*.crt
+*.cer
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.p7b
+*.p7c
+*.der
+
+# AWS credentials
+.aws/
+aws.credentials
+
+# Azure credentials
+.azure/
+
+# GCP credentials
+.gcp/
+*service-account*.json
+
+# Generic credential/token files (excluding examples/templates)
+*credentials*
+*secret*
+*password*
+*token*
+!credentials-example*
+!secrets-example*
+
+# API keys files
+api-keys.*
+api_key*
+apikey*
+
+# Database dumps
+*.dump
+*.sql.dump
+*.sql.backup
+dump.rdb
+
+# Password stores
+.pass*
+*.passstore
+
+# Kubernetes secrets (allow examples)
+*secret*.yaml
+*secret*.yml
+!*-example.yaml
+!*-example.yml
+!*-template.yaml
+!*-template.yml
+
+# TLS/SSL private keys
+*.key.pem
+*_key.pem
+private*.pem
+
+# =============================================================================
+# AI CONTROL CONFIGURATION
+# Managed by ai-control-harness deployment system
+# See: /home/user0/ai-control-harness/docs/PROJECT-CONFIGURATION-WORKFLOW.md
+# =============================================================================
+
+# IMPORTANT: .claude has NO trailing slash to handle symlinks correctly
+# ai-control-init symlinks .claude -> ai-control-config/projects/<name>/
+# A trailing slash would break symlink ignoring in some git versions
+.claude
+.claude.backup*
+.claude.local/
+
+# Claude project configuration files (per-user, not committed)
+CLAUDE.md
+CLAUDE.local.md
+
+# AI-related logs and temp files
+*.prompt
+ai-prompts/
+
+# mmdc temp files
+.mmdc/
