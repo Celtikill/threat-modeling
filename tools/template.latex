@@ -1,0 +1,158 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(papersize)$$papersize$paper,$endif$]{article}
+\usepackage{geometry}
+\geometry{$if(geometry)$$geometry$$else$margin=0.75in$endif$}
+\usepackage{fontspec}
+\setmainfont{$if(mainfont)$$mainfont$$else$DejaVu Sans$endif$}
+\setmonofont{$if(monofont)$$monofont$$else$DejaVu Sans Mono$endif$}
+
+$if(emojifont)$
+% Emoji/symbol fallback — covers SMP characters the main font lacks
+\newfontfamily{\symbolfallback}{$emojifont$}
+\usepackage[MiscellaneousSymbolsAndPictographs,
+            Emoticons,
+            TransportAndMapSymbols,
+            EnclosedAlphanumerics,
+            Dingbats]{ucharclasses}
+\setTransitionsFor{MiscellaneousSymbolsAndPictographs}{\symbolfallback}{}
+\setTransitionsFor{Emoticons}{\symbolfallback}{}
+\setTransitionsFor{TransportAndMapSymbols}{\symbolfallback}{}
+\setTransitionsFor{EnclosedAlphanumerics}{\symbolfallback}{}
+\setTransitionsFor{Dingbats}{\symbolfallback}{}
+$endif$
+
+\usepackage{longtable,booktabs,array}
+\usepackage{soul}
+\usepackage{graphicx}
+% pandoc 3.x image sizing support
+\makeatletter
+\newsavebox\pandoc@telerightimagebox
+\newcommand\pandocbounded[1]{\sbox\pandoc@telerightimagebox{#1}%
+  \ifdim\wd\pandoc@telerightimagebox>\linewidth
+    \resizebox{\linewidth}{!}{#1}%
+  \else
+    #1%
+  \fi}
+\makeatother
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  pdftitle={$title$}
+}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{\small\textcolor{gray}{$if(headertext)$$headertext$$else$Threat Assessment — Sanitized$endif$}}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small\textcolor{red}{CONFIDENTIAL}}
+\fancyfoot[L]{}
+\fancyfoot[R]{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+
+% Tight list support for pandoc
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Scale tables to fit page width
+\let\oldlongtable\longtable
+\let\endoldlongtable\endlongtable
+\usepackage{calc}
+
+\usepackage{pdflscape}   % Landscape rotation for wide tables
+\usepackage{needspace}   % Prevent orphaned section headings
+
+% Table formatting: smaller font, row padding, alternating row shading
+\AtBeginEnvironment{longtable}{%
+  \small
+  \renewcommand{\arraystretch}{1.4}%
+  \rowcolors{2}{gray!8}{white}%
+}
+
+% Blockquote styling
+\usepackage{mdframed}
+\renewenvironment{quote}{%
+  \begin{mdframed}[
+    linewidth=2pt,
+    linecolor=gray,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    leftmargin=0pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+    innertopmargin=5pt,
+    innerbottommargin=5pt,
+    backgroundcolor=gray!5
+  ]
+  \small\itshape
+}{%
+  \end{mdframed}
+}
+
+% Disable LaTeX auto-numbering (markdown has manual section numbers)
+\setcounter{secnumdepth}{0}
+
+% Reduce section spacing
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{8pt}{4pt}
+
+% Orphan protection for headings
+\let\oldsubsection\subsection
+\renewcommand{\subsection}{\needspace{5\baselineskip}\oldsubsection}
+\let\oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\needspace{5\baselineskip}\oldsubsubsection}
+
+% Code block styling - Shaded environment for pandoc
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{245,245,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  commandchars=\\\{\},
+  fontsize=\scriptsize,
+  breaklines=true
+}
+% Pandoc syntax highlighting token commands
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+
+\begin{document}
+
+$body$
+
+\end{document}

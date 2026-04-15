@@ -1,0 +1,52 @@
+# scope.txt — Infrastructure Scope Definition
+# One item per line. Prefix with type for parsing.
+# Lines starting with # are comments.
+#
+# Supported prefixes:
+#   aws:        AWS account ID
+#   ip:         Public IP address
+#   hostname:   DNS hostname
+#   arn:        AWS ARN (specific resource)
+#   url:        Web property URL
+#   cidr:       CIDR range
+#   exclude:    Explicitly out of scope (any format above)
+#
+# Example scope file using RFC 5737 / RFC 2606 reserved addresses:
+
+# --- AWS Accounts ---
+aws:[AWS-ACCT-ID-PROD]    # Production
+aws:[AWS-ACCT-ID-DEV]     # Development
+aws:[AWS-ACCT-ID-SEC]     # Security/Audit
+aws:[AWS-ACCT-ID-DATA]    # Data Lake
+
+# --- Public IPs ---
+ip:203.0.113.10     # Web gateway
+ip:203.0.113.11     # API gateway
+ip:198.51.100.50    # VPN endpoint
+ip:198.51.100.51    # Bastion host
+
+# --- Hostnames ---
+hostname:app.example.com
+hostname:api.example.com
+hostname:admin.example.com
+hostname:vpn.example.com
+
+# --- ARNs (specific resources in scope) ---
+arn:aws:s3:::example-data-lake
+arn:aws:rds:us-east-1:[AWS-ACCT-ID]:db:prod-db
+arn:aws:lambda:us-east-1:[AWS-ACCT-ID]:function:data-processor
+
+# --- Web Properties ---
+url:https://www.example.com
+url:https://app.example.com
+url:https://support.example.com
+
+# --- CIDR Ranges ---
+cidr:10.0.0.0/16    # Production VPC
+cidr:10.1.0.0/16    # Development VPC
+cidr:10.2.0.0/16    # Management VPC
+
+# --- Exclusions (explicitly out of scope) ---
+exclude:ip:203.0.113.99       # Decommissioned, do not assess
+exclude:aws:[AWS-ACCT-ID-SANDBOX]  # Sandbox account, out of scope
+exclude:hostname:legacy.example.com  # Scheduled for decommission
