@@ -45,10 +45,13 @@ An artifact containing the full detail of my analysis, including complete attack
 | I want to... | Start here |
 |--------------|------------|
 | **Understand the methodology** | [`docs/SOP.md`](docs/SOP.md) |
+| **Get started quickly** | [`docs/getting-started.md`](docs/getting-started.md) |
+| **Choose an assessment type** | [`docs/assessment-type-guide.md`](docs/assessment-type-guide.md) |
 | **Request a threat model (hypothetically)** | [`docs/consumer-guide.md`](docs/consumer-guide.md) |
 | **Explore attack trees** | [`docs/attack-trees/`](docs/attack-trees/) |
 | **See example assessments** | [`examples/`](examples/) |
 | **Use the templates** | [`templates/`](templates/) |
+| **Understand the repository model** | [`docs/architecture/three-repo-model.md`](docs/architecture/three-repo-model.md) |
 
 ### How It Works
 
@@ -86,7 +89,7 @@ graph TD
 ## Standards
 
 - **Threat identification:** MITRE ATT&CK, MITRE ATLAS (AI systems)
-- **Security requirements:** OWASP ASVS 5.0
+- **Security requirements:** OWASP ASVS 5.0, OWASP AISVS (systems with AI features)
 - **Risk scoring:** Qualitative Likelihood × Impact (High/Medium/Low)
 
 ## Examples
@@ -94,8 +97,8 @@ graph TD
 See [`examples/`](examples/) for fictional demonstration assessments:
 
 - **Type 1:** ExampleCorp SaaS vendor assessment
-- **Type 2:** ExampleAnalytics data pipeline assessment  
-- **Type 3:** ExampleCloud infrastructure posture assessment
+- **Type 2:** ExampleAnalytics data pipeline assessment
+- **Type 3:** ExampleCloud Infrastructure-Only assessment
 
 ## License
 This framework is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You are free to share and adapt this work with attribution.
