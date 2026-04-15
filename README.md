@@ -97,14 +97,7 @@ See [`examples/`](examples/) for fictional demonstration assessments:
 - **Type 2:** ExampleAnalytics data pipeline assessment  
 - **Type 3:** ExampleCloud infrastructure posture assessment
 
-*All examples use fictitious data for demonstration purposes.*
-
-## Contributing
-
-This framework follows semantic versioning. Template changes are breaking changes.
-
 ## License
-
 This framework is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You are free to share and adapt this work with attribution.
 
 ## About
