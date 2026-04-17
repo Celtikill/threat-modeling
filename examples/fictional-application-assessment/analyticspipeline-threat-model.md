@@ -20,12 +20,17 @@
 
 | Field | Value |
 |-------|-------|
-| **System** | ExampleAnalytics Pipeline (ExampleSource → ExampleTransform → ExampleWarehouse → ExampleBI) |
 | **Assessment Type** | Type 2: Internal Application |
+| **System** | ExampleAnalytics Pipeline (ExampleSource → ExampleTransform → ExampleWarehouse → ExampleBI) |
 | **Service/Product** | Multi-stage data integration pipeline |
 | **Integration Partners** | ExampleSource (ERP), ExampleTransform (ETL), ExampleWarehouse (Analytics), ExampleBI (Visualization) |
 | **Assessment Date** | 2026-02-01 |
+| **Assessor** | Security Architecture Team |
+| **Business Owner** | [Example Organization] Data Engineering |
 | **Risk Rating** | **Medium** |
+| **Assessment Mode** | Baseline |
+| **Prior Baseline Reference** | N/A (Baseline assessment) |
+| **Regulatory Context** | None |
 
 > **Note:** This is a fictional example demonstrating the threat modeling methodology. All systems, data types, and scenarios are fictitious.
 
@@ -35,11 +40,11 @@
 
 ### Critical Findings
 
-| Finding | Description |
-|---------|-------------|
-| ⚠️ **Weak Service Account Management** | Service accounts used for pipeline authentication; credential rotation not automated |
-| ⚠️ **Data in Transit** | Inter-service communication not consistently encrypted |
-| ⚠️ **Environment Isolation** | Development and production environments share underlying infrastructure |
+| Finding ID | Vulnerability | Threat ID | Threat Scenario | Risk Level |
+|------------|---------------|-----------|-----------------|------------|
+| ⚠️ **TM-001** | Weak service account management; credential rotation not automated | T-001 | Attacker compromises service account credentials to access pipeline data | High |
+| 🔗 **TM-002** | Inter-service communication not consistently encrypted | T-002 | Man-in-the-middle intercepts unencrypted data flow | Medium |
+| 🛡️ **TM-003** | Development and production environments share underlying infrastructure | T-003 | Developer accidentally or maliciously accesses production data | Medium |
 
 ### Risk Level Breakdown
 
@@ -63,7 +68,7 @@
 | **Primary Technology Stack** | REST APIs, cloud-native orchestration |
 | **Source Code Repository** | [Organization VCS] |
 | **Vendor Dependencies** | 4 SaaS vendors in chain |
-| **Cloud Provider** | Multiple (AWS, GCP, Azure) |
+| **Cloud Provider** | Multiple (ExampleCloud) |
 
 ### Service Integration Summary
 
@@ -137,6 +142,26 @@
 | Service Account Usage | Monitor for anomalous access patterns | Real-time |
 | Encryption Status | Verify TLS configuration | Weekly |
 | Environment Separation | Audit cross-environment access | Monthly |
+
+---
+
+## 7. Assessment Sources and Methodology
+
+### Information Sources
+
+1. **ExampleSource Documentation** — API and integration documentation
+2. **ExampleWarehouse Security Whitepaper** — Platform security controls
+3. **MITRE ATT&CK** — Cloud and application technique mapping
+
+### Assessment Confidence Levels
+
+| Assessment Area | Confidence | Source |
+|-----------------|------------|--------|
+| Service Account Configuration | High | Direct review |
+| Encryption Status | Medium | Vendor documentation |
+| Environment Isolation | Low | Inferred from architecture |
+
+**Overall Confidence Level:** Medium — Based on vendor documentation and architectural review; direct security testing not performed.
 
 ---
 

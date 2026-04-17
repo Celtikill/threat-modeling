@@ -200,7 +200,7 @@ Long-lived, shared credentials create significant attack surface:
 - Assumption: A-01 (see Assumptions Register)
 
 **Recommendation:**
-Implement automated credential rotation with 90-day maximum lifetime. Deploy centralized secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault). Separate credentials per environment with no cross-environment sharing.
+Implement automated credential rotation with 90-day maximum lifetime. Deploy centralized secrets manager (e.g., ExampleSecrets Manager, ExampleVault). Separate credentials per environment with no cross-environment sharing.
 
 **Priority:** Immediate
 
@@ -362,6 +362,18 @@ Implement automated credential rotation with 90-day maximum lifetime. Deploy cen
 | MITRE ATT&CK T1557 | MITRE ATT&CK | https://attack.mitre.org/techniques/T1557/ |
 | ASVS V4.1 | OWASP ASVS 5.0 | https://owasp.org/www-project-application-security-verification-standard/ |
 | ASVS V6.1 | OWASP ASVS 5.0 | https://owasp.org/www-project-application-security-verification-standard/ |
+
+---
+
+## Glossary
+
+| Term | Definition |
+|------|------------|
+| ASVS | OWASP Application Security Verification Standard (v5.0) |
+| ETL | Extract, Transform, Load — data pipeline pattern |
+| IAM | Identity and Access Management |
+| MITRE ATT&CK | Framework of cyber threat tactics and techniques |
+| RBAC | Role-Based Access Control |
 
 ---
 

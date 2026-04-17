@@ -20,12 +20,17 @@
 
 | Field | Value |
 |-------|-------|
-| **System** | ExampleCloud Multi-Account Infrastructure |
 | **Assessment Type** | Type 3: Infrastructure-Only |
+| **System** | ExampleCloud Multi-Account Infrastructure |
 | **Cloud Provider** | ExampleCloud Platform |
-| **Accounts in Scope** | Production, Staging, Development, Shared Services |
+| **Accounts/Scope in Scope** | Production, Staging, Development, Shared Services |
 | **Assessment Date** | 2026-01-20 |
-| **Risk Rating** | **Medium** |
+| **Assessor** | Security Architecture Team |
+| **Business Owner** | [Example Organization] Infrastructure Team |
+| **Risk Rating** | **High** |
+| **Assessment Mode** | Baseline |
+| **Prior Baseline Reference** | N/A (Baseline assessment) |
+| **Regulatory Context** | None |
 
 > **Note:** This is a fictional example demonstrating the threat modeling methodology. All infrastructure details and scenarios are fictitious.
 
@@ -35,11 +40,11 @@
 
 ### Critical Findings
 
-| Finding | Description |
-|---------|-------------|
-| ⚠️ **Overprivileged IAM Roles** | Several service roles have broader permissions than required |
-| ⚠️ **Public Endpoint Exposure** | Management endpoints accessible from public internet |
-| ⚠️ **Logging Gaps** | Cloud audit logs not centralized or monitored |
+| Finding ID | Vulnerability | Threat ID | Threat Scenario | Risk Level |
+|------------|---------------|-----------|-----------------|------------|
+| ⚠️ **TM-001** | Overprivileged IAM roles with broader permissions than required | T-001 | Attacker exploits overprivileged service role to access production data | High |
+| 🔗 **TM-002** | Management endpoints accessible from public internet | T-002 | Attacker compromises management endpoint via public internet | High |
+| 🛡️ **TM-003** | Cloud audit logs not centralized or monitored | T-003 | Unauthorized access undetected due to logging gaps | Medium |
 
 ### Risk Level Breakdown
 
@@ -60,7 +65,7 @@
 | **Cloud Provider(s)** | ExampleCloud Platform |
 | **Account(s) in Scope** | prod-account, staging-account, dev-account, shared-account |
 | **Region(s)** | us-example-1, us-example-2 |
-| **IaC Tooling** | ExampleTerraform / CloudFormation |
+| **IaC Tooling** | ExampleTerraform |
 | **Network Architecture** | 4 VPCs with peering, transit gateway |
 | **Public Attack Surface** | 12 internet-facing services |
 
@@ -143,7 +148,7 @@
 ### Information Sources
 
 1. **ExampleCloud Security Benchmark** — Cloud provider security guidelines
-2. **Infrastructure as Code Repository** — Terraform/CloudFormation configurations
+2. **Infrastructure as Code Repository** — ExampleTerraform configurations
 3. **IAM Policy Audit** — Automated policy analysis report
 4. **MITRE ATT&CK Cloud Matrix** — Cloud-specific threat techniques
 

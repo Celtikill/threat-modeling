@@ -303,4 +303,16 @@ Implement multi-factor authentication for all administrative accounts. Require p
 
 ---
 
+## Glossary
+
+| Term | Definition |
+|------|------------|
+| ASVS | OWASP Application Security Verification Standard (v5.0) |
+| BYOT | Bring Your Own Telecom — client owns carrier relationships |
+| CIA | Confidentiality, Integrity, Availability |
+| MITRE ATT&CK | Framework of cyber threat tactics and techniques |
+| SaaS | Software as a Service |
+
+---
+
 *This is a fictional example supporting analysis for demonstration purposes only. All organizations, scenarios, and data are fictitious.*

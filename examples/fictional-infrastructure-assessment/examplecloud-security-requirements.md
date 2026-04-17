@@ -51,54 +51,77 @@ This document uses [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) key
 
 ## Requirements by ASVS 5.0 Category
 
-### V4: Authentication and Authorization (Infrastructure Focus)
+### V6: Authentication (Infrastructure Focus)
 
 *IAM policy requirements for cloud infrastructure*
 
 | ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
 |----|-------|-------------|----------|------------|-------|--------------|
-| **V4.1** | **FR** | **IAM policies MUST NOT use wildcard (`*`) permissions for actions or resources** | **v5.0.0-4.3.1** | **T-001** | **MUST** | **IAM policy audit** |
-| **V4.2** | **FR** | **Service accounts MUST have dedicated roles with least-privilege permissions** | **v5.0.0-4.3.2** | **T-001** | **MUST** | **IAM inventory review** |
-| V4.3 | FR | IAM roles SHOULD include conditions restricting access by source IP or VPC | v5.0.0-4.3.x | T-006 | SHOULD | Policy condition review |
-| **V4.4** | **FR** | **Console access MUST require multi-factor authentication** | **v5.0.0-4.2.x** | **T-002, T-004** | **MUST** | **IAM configuration audit** |
-| V4.5 | NFR | Access keys SHOULD be rotated every 90 days | v5.0.0-4.3.x | T-005 | SHOULD | Key age audit |
-| V4.6 | FR | Unused IAM credentials MUST be disabled after 90 days of inactivity | v5.0.0-4.3.x | T-005 | MUST | Credential activity review |
+| **V6.1** | **FR** | **IAM policies MUST NOT use wildcard (`*`) permissions for actions or resources** | **v5.0.0-6.x.x** | **T-001** | **MUST** | **IAM policy audit** |
+| **V6.2** | **FR** | **Service accounts MUST have dedicated roles with least-privilege permissions** | **v5.0.0-6.x.x** | **T-001** | **MUST** | **IAM inventory review** |
+| V6.3 | FR | IAM roles SHOULD include conditions restricting access by source IP or VPC | v5.0.0-6.x.x | T-006 | SHOULD | Policy condition review |
+| **V6.4** | **FR** | **Console access MUST require multi-factor authentication** | **v5.0.0-6.x.x** | **T-002, T-004** | **MUST** | **IAM configuration audit** |
+| V6.5 | NFR | Access keys SHOULD be rotated every 90 days | v5.0.0-6.x.x | T-005 | SHOULD | Key age audit |
+| V6.6 | FR | Unused IAM credentials MUST be disabled after 90 days of inactivity | v5.0.0-6.x.x | T-005 | MUST | Credential activity review |
 
-### V6: Data Protection (Infrastructure Encryption)
+### V8: Authorization (Infrastructure Focus)
+
+*Least-privilege and role-based access control*
+
+| ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|----------|------------|-------|--------------|
+| V8.1 | FR | Cross-account role assumptions MUST be explicitly documented and reviewed | v5.0.0-8.x.x | T-006 | SHOULD | Role assumption audit |
+
+### V11: Cryptography (Infrastructure Encryption)
 
 *Encryption at rest and in transit for infrastructure*
 
 | ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
 |----|-------|-------------|----------|------------|-------|--------------|
-| V6.1 | FR | All storage buckets MUST enforce encryption at rest using AES-256 | v5.0.0-6.1.x | T-008 | MUST | Storage configuration audit |
-| V6.2 | FR | Block storage volumes MUST use encrypted storage | v5.0.0-6.1.x | T-008 | MUST | Volume configuration review |
-| V6.3 | FR | Database instances MUST enable encryption at rest | v5.0.0-6.1.x | T-008 | MUST | Database configuration audit |
-| V6.4 | FR | API endpoints MUST enforce TLS 1.2 minimum (TLS 1.3 preferred) | v5.0.0-6.2.x | T-002 | MUST | TLS configuration scan |
-| V6.5 | FR | TLS certificates MUST be valid and not expired | v5.0.0-6.2.x | T-002 | MUST | Certificate monitoring |
+| V11.1 | FR | All storage buckets MUST enforce encryption at rest using AES-256 | v5.0.0-11.x.x | T-008 | MUST | Storage configuration audit |
+| V11.2 | FR | Block storage volumes MUST use encrypted storage | v5.0.0-11.x.x | T-008 | MUST | Volume configuration review |
+| V11.3 | FR | Database instances MUST enable encryption at rest | v5.0.0-11.x.x | T-008 | MUST | Database configuration audit |
 
-### V8: Exception Handling and Logging
+### V12: Secure Communication (Infrastructure)
 
-*Cloud audit logging requirements*
+*TLS and network communication security*
 
 | ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
 |----|-------|-------------|----------|------------|-------|--------------|
-| **V8.1** | **FR** | **Cloud audit logs MUST be enabled for all accounts and all API activity** | **v5.0.0-8.1.x** | **T-003** | **MUST** | **CloudTrail configuration review** |
-| **V8.2** | **FR** | **Audit logs MUST be forwarded to a centralized SIEM platform** | **v5.0.0-8.2.x** | **T-003** | **MUST** | **Log forwarding verification** |
-| V8.3 | FR | Object-level logging MUST be enabled for sensitive storage buckets | v5.0.0-8.1.x | T-008 | SHOULD | S3 access logging review |
-| V8.4 | NFR | Logs MUST be retained for 90 days online and 1 year in archive | v5.0.0-8.2.x | T-003 | MUST | Retention policy verification |
-| V8.5 | FR | Real-time alerts MUST be configured for high-risk API calls | v5.0.0-8.3.x | T-001 | MUST | Alert rule review |
+| V12.1 | FR | API endpoints MUST enforce TLS 1.2 minimum (TLS 1.3 preferred) | v5.0.0-12.x.x | T-002 | MUST | TLS configuration scan |
+| V12.2 | FR | TLS certificates MUST be valid and not expired | v5.0.0-12.x.x | T-002 | MUST | Certificate monitoring |
 
-### V14: Configuration
+### V13: Configuration (Infrastructure)
 
 *Infrastructure configuration security*
 
 | ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
 |----|-------|-------------|----------|------------|-------|--------------|
-| **V14.1** | **FR** | **Management endpoints MUST NOT be accessible from public internet (0.0.0.0/0)** | **v5.0.0-14.x.x** | **T-002** | **MUST** | **Security group audit** |
-| V14.2 | FR | Management access SHOULD be restricted to corporate IP ranges or VPN | v5.0.0-14.x.x | T-002 | SHOULD | Network access review |
-| V14.3 | FR | Security groups MUST use least-privilege ingress rules | v5.0.0-14.x.x | T-002 | MUST | Security group rule review |
-| V14.4 | FR | Default security groups MUST deny all traffic by default | v5.0.0-14.x.x | T-002 | MUST | Default rule verification |
-| V14.5 | FR | Infrastructure changes MUST be deployed via automated pipelines | v5.0.0-14.x.x | T-007 | SHOULD | CI/CD pipeline review |
+| **V13.1** | **FR** | **Management endpoints MUST NOT be accessible from public internet (0.0.0.0/0)** | **v5.0.0-13.x.x** | **T-002** | **MUST** | **Security group audit** |
+| V13.2 | FR | Management access SHOULD be restricted to corporate IP ranges or VPN | v5.0.0-13.x.x | T-002 | SHOULD | Network access review |
+| V13.3 | FR | Security groups MUST use least-privilege ingress rules | v5.0.0-13.x.x | T-002 | MUST | Security group rule review |
+| V13.4 | FR | Default security groups MUST deny all traffic by default | v5.0.0-13.x.x | T-002 | MUST | Default rule verification |
+| V13.5 | FR | Infrastructure changes MUST be deployed via automated pipelines | v5.0.0-13.x.x | T-007 | SHOULD | CI/CD pipeline review |
+
+### V14: Data Protection (Infrastructure)
+
+*Data classification and protection*
+
+| ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|----------|------------|-------|--------------|
+| V14.1 | FR | Data in cloud storage MUST be classified by sensitivity level | v5.0.0-14.x.x | T-008 | SHOULD | Classification audit |
+
+### V16: Security Logging and Error Handling (Infrastructure)
+
+*Cloud audit logging requirements*
+
+| ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|----------|------------|-------|--------------|
+| **V16.1** | **FR** | **Cloud audit logs MUST be enabled for all accounts and all API activity** | **v5.0.0-16.x.x** | **T-003** | **MUST** | **ExampleAudit configuration review** |
+| **V16.2** | **FR** | **Audit logs MUST be forwarded to a centralized SIEM platform** | **v5.0.0-16.x.x** | **T-003** | **MUST** | **Log forwarding verification** |
+| V16.3 | FR | Object-level logging MUST be enabled for sensitive storage buckets | v5.0.0-16.x.x | T-008 | SHOULD | S3 access logging review |
+| V16.4 | NFR | Logs MUST be retained for 90 days online and 1 year in archive | v5.0.0-16.x.x | T-003 | MUST | Retention policy verification |
+| V16.5 | FR | Real-time alerts MUST be configured for high-risk API calls | v5.0.0-16.x.x | T-001 | MUST | Alert rule review |
 
 ---
 
@@ -126,8 +149,8 @@ This document uses [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) key
 
 | ID | Class | Requirement | Threat Ref | Level | Verification |
 |----|-------|-------------|------------|-------|--------------|
-| LOG-01 | FR | CloudTrail MUST be enabled in all regions | T-003 | MUST | CloudTrail status |
-| LOG-02 | FR | CloudTrail logs MUST be encrypted with KMS | T-003 | SHOULD | Encryption verification |
+| LOG-01 | FR | ExampleAudit MUST be enabled in all regions | T-003 | MUST | ExampleAudit status |
+| LOG-02 | FR | ExampleAudit logs MUST be encrypted with KMS | T-003 | SHOULD | Encryption verification |
 | LOG-03 | FR | Log integrity validation MUST be enabled | T-003 | SHOULD | Integrity check |
 | LOG-04 | FR | Alerts MUST trigger on IAM policy changes | T-001 | MUST | Alert configuration |
 | LOG-05 | FR | Alerts MUST trigger on root account usage | T-004 | MUST | Alert configuration |
@@ -140,17 +163,17 @@ This document uses [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) key
 
 | Requirement ID | Verification Method | Frequency |
 |----------------|-------------------|-----------|
-| V4.1 (No wildcards) | IAM policy scanner | Daily |
-| V4.4 (MFA) | IAM credential report | Daily |
-| V6.4 (TLS 1.2+) | SSL Labs/API scan | Weekly |
-| V8.1 (CloudTrail) | Configuration drift detection | Continuous |
-| V14.1 (No public mgmt) | Security group scanner | Hourly |
+| V6.1 (No wildcards) | IAM policy scanner | Daily |
+| V6.4 (MFA) | IAM credential report | Daily |
+| V12.1 (TLS 1.2+) | SSL Labs/API scan | Weekly |
+| V16.1 (ExampleAudit) | Configuration drift detection | Continuous |
+| V13.1 (No public mgmt) | Security group scanner | Hourly |
 
 ### Manual Verification
 
 | Requirement ID | Verification Method | Frequency |
 |----------------|-------------------|-----------|
-| V4.2 (Service account roles) | IAM architecture review | Quarterly |
+| V6.2 (Service account roles) | IAM architecture review | Quarterly |
 | IAM-01/02 (Explicit policies) | Policy review | Quarterly |
 | NET-01/03 (Network segmentation) | Network architecture review | Semi-annual |
 
@@ -160,14 +183,14 @@ This document uses [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) key
 
 | Requirement ID | Threat Ref | Risk Level | Priority |
 |----------------|------------|------------|----------|
-| **V4.1** | T-001 | High | Critical |
-| **V4.2** | T-001 | High | Critical |
-| **V4.4** | T-002, T-004 | High | Critical |
-| **V8.1** | T-003 | Medium | High |
-| **V8.2** | T-003 | Medium | High |
-| **V14.1** | T-002 | High | Critical |
-| V6.4 | T-002 | Medium | High |
-| V8.4 | T-003 | Medium | High |
+| **V6.1** | T-001 | High | Critical |
+| **V6.2** | T-001 | High | Critical |
+| **V6.4** | T-002, T-004 | High | Critical |
+| **V16.1** | T-003 | Medium | High |
+| **V16.2** | T-003 | Medium | High |
+| **V13.1** | T-002 | High | Critical |
+| V12.1 | T-002 | Medium | High |
+| V16.4 | T-003 | Medium | High |
 | IAM-01 | T-001 | High | High |
 | IAM-02 | T-001 | High | High |
 | NET-01 | T-006 | Medium | Medium |

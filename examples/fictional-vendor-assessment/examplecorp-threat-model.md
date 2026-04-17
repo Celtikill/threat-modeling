@@ -25,7 +25,12 @@
 | **Service/Product** | ExampleAnalytics — Business intelligence and analytics platform |
 | **Integration Partners** | ExampleDatabase, ExampleStorage, ExampleIdentity |
 | **Assessment Date** | 2026-01-15 |
+| **Assessor** | Security Architecture Team |
+| **Business Owner** | [Example Organization] |
 | **Risk Rating** | **Medium** |
+| **Assessment Mode** | Baseline |
+| **Prior Baseline Reference** | N/A (Baseline assessment) |
+| **Regulatory Context** | None |
 | **Vendor Recommendation** | **Proceed with Conditions** |
 
 > **Note:** This is a fictional example demonstrating the threat modeling methodology. All organizations, data types, and scenarios are fictitious.
@@ -64,7 +69,7 @@
 | **Employees** | ~500 |
 | **Headquarters** | Example City, Example Country |
 | **Ownership** | Private (ExampleVentures backing) |
-| **Cloud Provider** | AWS / Azure / GCP |
+| **Cloud Provider** | ExampleCloud |
 | **Compliance** | SOC 2 Type II, ISO 27001 |
 
 ### Service Integration Summary

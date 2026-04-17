@@ -76,7 +76,7 @@ Goal: Compromise organizational infrastructure through configuration or access c
 │   └── 13.2 Key Management Exploitation
 │       └── (no threats identified)
 └── Branch 14: Logging Evasion
-    ├── 14.1 CloudTrail and Audit Log Bypass
+    ├── 14.1 ExampleAudit and Audit Log Bypass
     │   └── T-003: Unauthorized access undetected due to logging gaps
     └── 14.2 Detection Avoidance
         └── (no threats identified)
@@ -340,7 +340,7 @@ Restrict management access:
 | ID | Assumption | Source | Impact if Invalid | Validation Method | Status |
 |----|-----------|--------|-------------------|-------------------|--------|
 | A-01 | Service roles reviewed within last year | IAM policy timestamp | Unknown privilege escalation if roles stale | Review IAM access analyzer findings | Unvalidated |
-| A-02 | CloudTrail enabled in all accounts | Account baseline | No audit trail if logging not enabled | Verify CloudTrail configuration | Validated |
+| A-02 | ExampleAudit enabled in all accounts | Account baseline | No audit trail if logging not enabled | Verify ExampleAudit configuration | Validated |
 | A-03 | MFA enforced for console access | IAM policy condition | Account compromise if MFA not enforced | Check IAM policy conditions | Unvalidated |
 
 ### Assumption Summary
@@ -376,7 +376,7 @@ Restrict management access:
 |---------|--------|------|
 | Overprivileged IAM role | IAM Access Analyzer | Automated scan |
 | Public management exposure | Network configuration | Configuration review |
-| Logging configuration | CloudTrail settings | Configuration review |
+| Logging configuration | ExampleAudit settings | Configuration review |
 
 ### Framework References
 
@@ -387,6 +387,20 @@ Restrict management access:
 | CIS Benchmark 1.0 | CIS | https://www.cisecurity.org/benchmarks |
 | CIS Benchmark 3.0 | CIS | https://www.cisecurity.org/benchmarks |
 | CIS Benchmark 4.0 | CIS | https://www.cisecurity.org/benchmarks |
+
+---
+
+## Glossary
+
+| Term | Definition |
+|------|------------|
+| ASVS | OWASP Application Security Verification Standard (v5.0) |
+| CIS | Center for Internet Security |
+| ExampleAudit | Fictional cloud audit logging service |
+| IAM | Identity and Access Management |
+| IaC | Infrastructure as Code |
+| MITRE ATT&CK | Framework of cyber threat tactics and techniques |
+| VPC | Virtual Private Cloud |
 
 ---
 
