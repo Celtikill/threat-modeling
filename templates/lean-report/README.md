@@ -14,17 +14,17 @@ This directory contains threat model lean report templates for each of the three
 
 ## Template Structure
 
-All templates follow the same 8-section structure (7 numbered sections plus Appendix A):
+All templates follow the same structure: 7 numbered sections plus Document Control (unnumbered) and Appendix A:
 
 1. **Assessment Overview** — Key facts, risk rating, vendor recommendation (Type 1 only)
 2. **Risk Management Summary** — Critical findings and risk breakdown
-3. **System Profile and Context** — Type-specific profile section
+3. **System/Profile and Context** — Type-specific profile section (see Key Differences below)
 4. **Asset & Data Flow Analysis** — Data classification and flows
 5. **Top Priority Risks** — High-rated threats with MITRE mappings
 6. **Ongoing Risk Management** — Mitigating requirements and monitoring
 7. **Assessment Sources and Methodology** — Sources and confidence levels
 
-Plus **Appendix A** for architecture diagrams.
+Plus **Document Control** (version tracking) and **Appendix A** (architecture diagrams).
 
 ## How to Use
 

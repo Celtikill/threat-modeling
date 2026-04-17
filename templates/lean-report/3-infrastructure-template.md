@@ -101,6 +101,13 @@
 
 *Infrastructure assets and access patterns. See Appendix A for architecture diagrams.*
 
+### Data Classification Matrix
+
+| Data Type | Volume | Sensitivity | Storage Location | Regulatory Driver |
+|-----------|--------|-------------|------------------|-------------------|
+| [Data type] | [High/Med/Low] | [Critical/High/Med/Low] | [Service or bucket] | [Regulation or "Baseline"] |
+| [Data type] | [High/Med/Low] | [Critical/High/Med/Low] | [Service or bucket] | [Regulation or "Baseline"] |
+
 ### Access Vectors
 
 | Vector | Description |
@@ -238,4 +245,4 @@ graph TB
 
 ---
 
-*Document generated using Threat Modeling Framework v4.1*
+*Document generated using Threat Modeling Framework v5.0*

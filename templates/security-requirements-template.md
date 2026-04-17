@@ -242,6 +242,91 @@ This template references **OWASP ASVS 5.0** (released May 2025). Key changes fro
 
 ---
 
+## AISVS Requirements (AI-Enabled Systems Only)
+
+<!-- Include this section when the system under assessment includes AI/ML components (LLMs, models, agents, vector databases, RAG pipelines).
+     Map AI-specific threats (branches 15-21) to AISVS chapter requirements.
+     Reference the OWASP AISVS (https://github.com/OWASP/AISVS/) for detailed requirement specifications.
+     Omit this section for systems without AI features. -->
+
+### C1: Training Data Integrity
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C1.1 | [FR/NFR] | [Requirement for training data provenance and integrity] | [C1.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C2: User Input Validation
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C2.1 | [FR/NFR] | [Requirement for input validation and prompt injection prevention] | [C2.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+| C2.2 | [FR/NFR] | [Requirement for prompt boundary protection] | [C2.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C3: Model Lifecycle Management and Change Control
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C3.1 | [FR/NFR] | [Requirement for model versioning and change control] | [C3.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C4: Infrastructure, Configuration and Deployment Security
+
+<!-- Include when AI workloads have specific infrastructure requirements -->
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C4.1 | [FR/NFR] | [Requirement for AI infrastructure security] | [C4.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C5: Access Control and Identity
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C5.1 | [FR/NFR] | [Requirement for AI system access control] | [C5.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C6: Supply Chain Security for Models, Frameworks and Data
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C6.1 | [FR/NFR] | [Requirement for model supply chain verification] | [C6.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C7: Model Behavior, Output Control and Safety Assurance
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C7.1 | [FR/NFR] | [Requirement for model output filtering and safety] | [C7.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+| C7.2 | [FR/NFR] | [Requirement for output quality monitoring] | [C7.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C8: Memory, Embeddings and Vector Database Security
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C8.1 | [FR/NFR] | [Requirement for vector database access controls] | [C8.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C9: Autonomous Orchestration and Agentic Action Security
+
+<!-- Include when the system includes AI agents with tool access -->
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C9.1 | [FR/NFR] | [Requirement for agent permission scoping] | [C9.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C10: Model Context Protocol (MCP) Security
+
+<!-- Include when the system uses Model Context Protocol -->
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C10.1 | [FR/NFR] | [Requirement for MCP tool validation] | [C10.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+### C11: Adversarial Robustness and Attack Resistance
+
+| ID | Class | Requirement | AISVS Ref | Threat Ref | Level | Verification |
+|----|-------|-------------|-----------|------------|-------|--------------|
+| C11.1 | [FR/NFR] | [Requirement for adversarial robustness testing] | [C11.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+
+<!-- C12 (Privacy), C13 (Monitoring), C14 (Human Oversight) — include if applicable based on assessment scope -->
+
+---
+
 ## System-Specific Requirements
 
 <!-- For Type 2 data pipelines: create a subsection per pipeline stage (e.g., Source, Extract/Load, Warehouse, Transform, Egress)

@@ -424,28 +424,28 @@ Before proceeding, verify:
 
 ### [System/Vendor Name]
 
-| Finding | Source | URL |
-|---------|--------|-----|
-| [Specific claim or feature] | [Document or page name] | [https://...] |
-| [Specific claim or feature] | [Document or page name] | [https://...] |
+| Finding | Source | URL | Access Date |
+|---------|--------|-----|-------------|
+| [Specific claim or feature] | [Document or page name] | [https://...] | [YYYY-MM-DD] |
+| [Specific claim or feature] | [Document or page name] | [https://...] | [YYYY-MM-DD] |
 
 <!-- Repeat subsection for each additional system, vendor, or integration partner -->
 
 ### Regulatory and Framework References
 
-| Finding | Source | URL |
-|---------|--------|-----|
-| [Regulatory requirement or framework reference] | [Document or page name] | [https://...] |
-| [Regulatory requirement or framework reference] | [Document or page name] | [https://...] |
+| Finding | Source | URL | Access Date |
+|---------|--------|-----|-------------|
+| [Regulatory requirement or framework reference] | [Document or page name] | [https://...] | [YYYY-MM-DD] |
+| [Regulatory requirement or framework reference] | [Document or page name] | [https://...] | [YYYY-MM-DD] |
 
 ### Threat Intelligence Sources
 
 <!-- Incident reports, news articles, and other threat intelligence referenced in the assessment -->
 
-| Finding | Source | URL |
-|---------|--------|-----|
-| [Incident or intelligence item] | [Publication name] | [https://...] |
-| [Incident or intelligence item] | [Publication name] | [https://...] |
+| Finding | Source | URL | Access Date |
+|---------|--------|-----|-------------|
+| [Incident or intelligence item] | [Publication name] | [https://...] | [YYYY-MM-DD] |
+| [Incident or intelligence item] | [Publication name] | [https://...] | [YYYY-MM-DD] |
 
 ---
 

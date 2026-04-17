@@ -34,7 +34,7 @@
 | **Assessor** | [Name / Role] |
 | **Business Owner** | [Name / Title] |
 | **Risk Rating** | [Critical / High / Medium / Low] |
-| **Assessment Mode** | [Baseline / Delta / Re-baseline] |
+| **Assessment Mode** | [Baseline / Re-baseline] — *Delta mode is not available for Type 1; vendor changes require Re-baseline* |
 | **Prior Baseline Reference** | [Link to prior baseline, if Delta/Re-baseline] |
 | **Regulatory Context** | [HIPAA / 42 CFR Part 2 / Life-Safety Regulations / None] |
 | **Vendor Recommendation** | [Proceed / Proceed with Conditions / Do Not Proceed] |
@@ -234,4 +234,4 @@ graph TB
 
 ---
 
-*Document generated using Threat Modeling Framework v4.1*
+*Document generated using Threat Modeling Framework v5.0*

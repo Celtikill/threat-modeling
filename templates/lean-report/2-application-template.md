@@ -231,4 +231,4 @@ graph TB
 
 ---
 
-*Document generated using Threat Modeling Framework v4.1*
+*Document generated using Threat Modeling Framework v5.0*

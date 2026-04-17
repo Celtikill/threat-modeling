@@ -1,6 +1,6 @@
 # Threat Model Intake Form
 
-Complete this form to request a threat model assessment. For guidance on each field, see the [Consumer Guide](./consumer-guide.md#completing-the-intake-form).
+Complete this form to request a threat model assessment. For guidance on each field, see the [Consumer Guide](../docs/consumer-guide.md#completing-the-intake-form).
 
 > **A Jira issue type for streamlined intake is coming soon.** In the meantime, complete this form and submit it to the Security Architecture Team.
 
@@ -240,7 +240,7 @@ List all systems this system connects to:
 | Cloud Provider(s) | [ ] AWS / [ ] Azure / [ ] GCP / [ ] Other |
 | Account IDs in scope | |
 | Public IP addresses / DNS names | |
-| scope.txt attached? | [ ] Yes / [ ] No — see [scope-example.txt](./scope-example.txt) for format |
+| scope.txt attached? | [ ] Yes / [ ] No — see `scope.txt` format for infrastructure inventories |
 
 ### 3.2 IaC and Configuration
 
@@ -274,7 +274,7 @@ List all systems this system connects to:
 | Artifact | Attached? | Notes |
 |----------|-----------|-------|
 | Architecture / data flow diagram | [ ] | |
-| scope.txt (for Type 3 — see [scope-example.txt](./scope-example.txt) for format) | [ ] | |
+| scope.txt (for Type 3 — infrastructure inventory format) | [ ] | |
 | Vendor security documentation (for Type 1) | [ ] | |
 | Previous assessment reports (if reassessment) | [ ] | |
 | Relevant audit findings | [ ] | |
