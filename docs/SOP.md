@@ -1004,13 +1004,46 @@ Before proceeding to Phase 5, confirm the following are addressed:
 | Medium | Industry standards, third-party assessments, public documentation |
 | Low | Inferred from general practices, incomplete information, assumptions |
 
-### 5.2 Report Structure (Lean Template)
+### 5.2 Executive Summary
 
-The threat model report should use the appropriate type-specific template ([1-vendor-template.md](../templates/lean-report/1-vendor-template.md), [2-application-template.md](../templates/lean-report/2-application-template.md), or [3-infrastructure-template.md](../templates/lean-report/3-infrastructure-template.md)). All templates define 7 numbered sections plus Document Control and Appendix A:
+The threat model report must include an Executive Summary that follows a standardized structure to ensure consistent communication of critical findings to leadership.
+
+**Executive Summary Structure:**
+
+| Section | Purpose | Format |
+|---------|---------|--------|
+| Executive Action Required | Urgent opening statement explaining number/severity of critical findings and why immediate executive attention is required | Centered bold heading + paragraph |
+| Security & Compliance Context | Regulatory implications (HIPAA, GDPR, etc.), operational/financial impact, grant or contract implications | 1-2 paragraphs |
+| Risk Quadrant Chart | Visual representation of Critical and High findings plotted by likelihood and impact | Mermaid quadrantChart |
+
+**Risk Quadrant Chart Requirements:**
+
+```mermaid
+quadrantChart
+    title Risk Matrix: [N] Critical/High Findings
+    x-axis Low Likelihood --> High Likelihood
+    y-axis Low Impact --> High Impact
+    quadrant-1 Immediate Action Required
+    quadrant-2 Catastrophic but Rare
+    quadrant-3 Low Priority
+    quadrant-4 Likely but Limited
+    "Finding Name": [likelihood, impact]
+    ...
+```
+
+- **Quadrant names** (must match exactly): Immediate Action Required, Catastrophic but Rare, Low Priority, Likely but Limited
+- **Critical findings:** Must be plotted (mandatory)
+- **High findings:** Plot if space permits (optional)
+- **Coordinates:** Scale 0.0-1.0 where 0.7+ impact = Critical, 0.5-0.7 = High
+
+### 5.3 Report Structure (Lean Template)
+
+The threat model report should use the appropriate type-specific template ([1-vendor-template.md](../templates/lean-report/1-vendor-template.md), [2-application-template.md](../templates/lean-report/2-application-template.md), or [3-infrastructure-template.md](../templates/lean-report/3-infrastructure-template.md)). All templates define 8 numbered sections plus Document Control and Appendix A:
 
 | Section | Purpose | Format |
 |---------|---------|--------|
 | Document Control | Version tracking, accountability | Table |
+| Executive Summary | Leadership-focused urgent action statement, compliance context, risk visualization | Structured subsections + Mermaid chart |
 | 1. Assessment Overview | Summary of subject, risk rating, and vendor recommendation (Type 1 only) | Table |
 | 2. Risk Management Summary | Critical findings and risk breakdown | Tables |
 | 3. System Profile and Context | Type-specific profile: Vendor Profile (Type 1) / System Profile (Type 2) / Infrastructure Scope Overview (Type 3) and integration details | Tables + blockquote callouts |
