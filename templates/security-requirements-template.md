@@ -333,33 +333,94 @@ This template references **OWASP ASVS 5.0** (released May 2025). Key changes fro
      For Type 2 applications: create a subsection per major component or service
      For Type 3 infrastructure: create a subsection per cloud account or service layer -->
 
-### [Component/Stage Name]
+### Pipeline Stage Pattern (Data Pipelines)
+
+<!-- For data pipelines, use stage-specific prefixes and tables -->
+
+#### Stage 1: Ingestion
+
+| ID | Requirement | Verification Method | Threat Ref |
+|----|-------------|---------------------|------------|
+| IN-1 | [Requirement specific to ingestion] | [Verification] | [T-NNN] |
+| IN-2 | [Requirement specific to ingestion] | [Verification] | [T-NNN] |
+
+#### Stage 2: Warehouse
+
+| ID | Requirement | Verification Method | Threat Ref |
+|----|-------------|---------------------|------------|
+| WH-1 | [Requirement specific to warehouse] | [Verification] | [T-NNN] |
+
+#### Stage 3: Transform
+
+| ID | Requirement | Verification Method | Threat Ref |
+|----|-------------|---------------------|------------|
+| TR-1 | [Requirement specific to transformation] | [Verification] | [T-NNN] |
+
+#### Stage 4: Egress
+
+| ID | Requirement | Verification Method | Threat Ref |
+|----|-------------|---------------------|------------|
+| EG-1 | [Requirement specific to egress] | [Verification] | [T-NNN] |
+
+<!-- ID prefix convention:
+     IN- = Ingestion, WH- = Warehouse, TR- = Transform, EG- = Egress
+     DB- = DBT, SF- = Snowflake, MA- = Medallion Architecture, AI- = AI/ML Pipeline -->
+
+### Component Pattern (Applications)
+
+#### [Component Name]
 
 | ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
 |----|-------|-------------|----------|------------|-------|--------------|
-| [Prefix-1] | [FR/NFR] | [Requirement specific to this component] | [v5.0.0-x.x.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
-| [Prefix-2] | [FR/NFR] | [Requirement specific to this component] | [v5.0.0-x.x.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+| [CMP-1] | [FR/NFR] | [Requirement specific to this component] | [v5.0.0-x.x.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
 
-<!-- ID prefix convention: use a short abbreviation for the component (e.g., ERP- for ExampleERP, ETL- for ExampleETL, WH- for ExampleWarehouse)
-     This enables clear traceability from requirement to component -->
+### High-Risk Data Type Requirements
 
-### [Component/Stage Name]
+<!-- Include when system handles data types with:
+     - Regulatory exemptions from standard protections
+     - Time-based risk accumulation
+     - Cross-layer re-identification risks
+     - Sector-specific sensitivity (life-safety, criminal justice, etc.) -->
 
-| ID | Class | Requirement | ASVS Ref | Threat Ref | Level | Verification |
-|----|-------|-------------|----------|------------|-------|--------------|
-| [Prefix-1] | [FR/NFR] | [Requirement specific to this component] | [v5.0.0-x.x.x] | [T-NNN] | [MUST/SHOULD/MAY] | [Verification method] |
+#### [Data Type] Specific Controls
 
-<!-- Repeat for each component or pipeline stage -->
+| ID | Requirement | ASVS Ref | Threat Ref | Priority | Verification |
+|----|-------------|----------|------------|----------|--------------|
+| [VXX.X-DATA] | [Data-type-specific requirement] | [v5.0.0-x.x.x] | [T-XXX] | [Required] | [Verification] |
+
+> **Implementation Guidance:**
+> - [Specific implementation notes for this data type]
+> - [Technical configuration details]
+> - [Monitoring/alerting requirements]
 
 ---
 
 ## Verification Criteria
 
-| ASVS Level | Verification Method | Frequency |
-|------------|-------------------|-----------|
-| L1 | Automated scanning (SAST/DAST/CSPM) + configuration review | Continuous / per-deployment |
-| L2 | L1 + manual code/configuration review | Per significant change |
-| L3 | L2 + penetration testing | Annually or after major architecture changes |
+### Automated Verification
+
+| Control | Verification Method | Frequency | Implementation Status |
+|---------|---------------------|-----------|----------------------|
+| [e.g., TLS Configuration] | [SSL Labs scan, OpenSSL validation] | [Monthly] | [Pending/Implemented] |
+| [e.g., Encryption at Rest] | [Vendor configuration API audit] | [Monthly] | [Pending/Implemented] |
+| [e.g., Access Control Lists] | [Automated permission scanning] | [Weekly] | [Pending/Implemented] |
+| [e.g., Vulnerability Scanning] | [SAST/DAST/Dependency scanning] | [Continuous] | [Pending/Implemented] |
+
+### Manual Verification
+
+| Control | Verification Method | Frequency | Implementation Status |
+|---------|---------------------|-----------|----------------------|
+| [e.g., Architecture Review] | [Design document review] | [Per change] | [Implemented] |
+| [e.g., Code Review] | [Peer review] | [Per deployment] | [Implemented] |
+| [e.g., Penetration Testing] | [Third-party security assessment] | [Annual] | [Pending] |
+| [e.g., Access Review] | [Quarterly certification] | [Quarterly] | [Pending] |
+
+### Compliance Verification
+
+| Requirement | Evidence Required | Review Frequency |
+|-------------|-------------------|------------------|
+| [Framework 1] | [Evidence type] | [Frequency] |
+| [Framework 2] | [Evidence type] | [Frequency] |
 
 ---
 
@@ -367,13 +428,14 @@ This template references **OWASP ASVS 5.0** (released May 2025). Key changes fro
 
 *Maps every High-rated threat from the threat model to specific mitigating requirements in this document.*
 
-| Threat ID | Threat Description | Risk Level | Mitigating Requirements |
-|-----------|-------------------|------------|------------------------|
-| [T-001] | [Threat description] | **High** | [V6.1, V6.2, Prefix-1] |
-| [T-002] | [Threat description] | **High** | [V8.1, V11.1, Prefix-2] |
-| [T-003] | [Threat description] | **High** | [V12.1, V14.1] |
+| Threat ID | Threat Description | Risk Level | Mitigating Requirements | Residual Risk |
+|-----------|-------------------|------------|------------------------|---------------|
+| [T-001] | [Threat description] | **High** | [V6.1, V6.2, Prefix-1] | [Medium/Low] |
+| [T-002] | [Threat description] | **High** | [V8.1, V11.1, Prefix-2] | [Medium/Low] |
+| [T-003] | [Threat description] | **High** | [V12.1, V14.1] | [Medium/Low] |
 
 <!-- Include all High-rated threats. Medium threats may be included for completeness. -->
+<!-- Residual Risk: Risk remaining after requirement implementation -->
 
 ### Coverage Summary
 
@@ -383,3 +445,24 @@ This template references **OWASP ASVS 5.0** (released May 2025). Key changes fro
 | Medium | [N] | [N] | [N] | [N] |
 
 <!-- If any High threats are unmitigated by requirements, flag them with commentary explaining why -->
+
+### ASVS/SSR Category Coverage
+
+| SSR Category | Requirement Count | High Priority | Medium Priority |
+|--------------|-------------------|---------------|-----------------|
+| V1: Architecture | [N] | [N] | [N] |
+| V2: Business Logic | [N] | [N] | [N] |
+| V4: API Security | [N] | [N] | [N] |
+| V5: Validation | [N] | [N] | [N] |
+| V6: Authentication | [N] | [N] | [N] |
+| V7: Session Management | [N] | [N] | [N] |
+| V8: Access Control | [N] | [N] | [N] |
+| V9: File Resources | [N] | [N] | [N] |
+| V10: Malicious Code | [N] | [N] | [N] |
+| V11: Cryptography | [N] | [N] | [N] |
+| V12: Communications | [N] | [N] | [N] |
+| V13: Configuration | [N] | [N] | [N] |
+| V14: Data Protection | [N] | [N] | [N] |
+| V15: AI/ML Security | [N] | [N] | [N] |
+| V16: Logging | [N] | [N] | [N] |
+| **Total** | **[N]** | **[N]** | **[N]** |

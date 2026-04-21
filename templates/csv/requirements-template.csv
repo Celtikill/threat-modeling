@@ -1,0 +1,4 @@
+Req_ID,Description,SSR_Ref,Threat_Ref,Priority,Verification_Method,Category,Phase,Implementation_Status
+V1.1,"[Clear requirement statement using RFC 2119 language - MUST/SHOULD/MAY]","[e.g., V1.1.1 - Reference to SSR/ASVS requirement]","[T-XXX - Threat ID(s) this requirement mitigates]","[Required/Recommended/Optional]","[How to verify this requirement is met]","[e.g., Architecture, Authentication, Cryptography]","[Phase 1/2/3 or 'All']","[Not Started/In Progress/Complete/Verified]"
+V1.2,"","","","","","","",""
+V1.3,"","","","","","","",""

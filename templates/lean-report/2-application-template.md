@@ -1,7 +1,20 @@
+---
+title: "Threat Model: [System Name]"
+subtitle: "[Context — e.g., ETL Pipeline for Analytics]"
+author: "[Name / Role]"
+date: "[YYYY-MM-DD]"
+version: "[1.0]"
+status: "[Draft / Draft-Reviewed / Final]"
+assessment_type: "Type 2: Internal Application"
+risk_rating: "[Critical / High / Medium / Low]"
+classification: "CONFIDENTIAL"
+---
+
 # Threat Model: [System Name] — [Context]
 
-<!-- Replace [System Name] with the system or pipeline name (e.g., "Financial Data Pipeline")
-     Replace [Context] with the use case or service description (e.g., "ETL for Analytics")
+<!-- Replace frontmatter values above and delete this comment block
+     [System Name] = system or pipeline name
+     [Context] = use case or service description
      This template is for Type 2: Internal Application assessments -->
 
 ---
@@ -17,6 +30,45 @@
 | **Assessor** | [Name / Role] |
 | **Business Owner** | [Name / Title] |
 | **Status** | [Draft / Draft-Reviewed / Final] |
+
+---
+
+## Executive Summary
+
+*Leadership-focused urgent action statement with security/compliance context and risk visualization.*
+
+### Executive Action Required
+
+\begin{center}
+\textbf{\large Executive Action Required}
+\end{center}
+
+**[Number] critical findings** expose [system description] to potential compromise. [One-sentence summary of combined risk]. Left unaddressed, these vulnerabilities could expose [organization] to [regulatory/operational consequences]. Immediate executive attention is required to prioritize remediation of [top 1-2 risk categories].
+
+### Security & Compliance Context
+
+[2-3 paragraphs covering:]
+- **Regulatory implications:** Applicable frameworks (HIPAA, GDPR, SOC 2, etc.) and specific obligations triggered
+- **Operational impact:** Business process disruption, service availability concerns
+- **Financial exposure:** Contract penalties, breach costs, grant funding implications
+
+### Risk Quadrant Chart
+
+```mermaid
+quadrantChart
+    title Risk Matrix: [N] Critical/High Findings
+    x-axis Low Likelihood --> High Likelihood
+    y-axis Low Impact --> High Impact
+    quadrant-1 Immediate Action Required
+    quadrant-2 Catastrophic but Rare
+    quadrant-3 Low Priority
+    quadrant-4 Likely but Limited
+    "TM-001 Finding": [0.75, 0.85]
+    "TM-002 Finding": [0.60, 0.90]
+    "TM-003 Finding": [0.85, 0.75]
+```
+
+*Plot Critical findings (0.7+ impact) mandatorily. Plot High findings (0.5-0.7 impact) if space permits.*
 
 ---
 
@@ -109,12 +161,35 @@
 | [Data type] | [High/Med/Low] | [Critical/High/Med/Low] | [Duration + basis] | [System name] | [Regulation or "Baseline"] |
 | [Data type] | [High/Med/Low] | [Critical/High/Med/Low] | [Duration + basis] | [System name] | [Regulation or "Baseline"] |
 
+### Data Layer Architecture (Optional)
+
+*For multi-stage data pipelines: document processing layers and access controls per layer.*
+
+> **Document Age Notice:** Note source age and terminology alignment with current implementation.
+
+| Layer | Stage | Description | Role Required |
+|-------|-------|-------------|---------------|
+| [Layer name] | [Stage] | [What data exists here] | [Access role] |
+| [Layer name] | [Stage] | [What data exists here] | [Access role] |
+
+> **Validation Note:** Confirm role permissions and document source [REF, section].
+
 ### Data Flow Summary
+
+*Categorize flows by risk level where applicable. Bold high-sensitivity data flows.*
+
+#### Primary Data Flows
 
 | Flow | Direction | Data Types | Protocol |
 |------|-----------|------------|----------|
+| [Source] → [Destination] | [Inbound/Outbound/Bidirectional] | **[High-sensitivity types]** / [Standard types] | [HTTPS/SFTP/etc.] |
 | [Source] → [Destination] | [Inbound/Outbound/Bidirectional] | [Data types] | [HTTPS/SFTP/etc.] |
-| [Source] → [Destination] | [Inbound/Outbound/Bidirectional] | [Data types] | [HTTPS/SFTP/etc.] |
+
+#### Egress/Secondary Flows (if applicable)
+
+| Flow | Direction | Data Types | Protocol |
+|------|-----------|------------|----------|
+| [Source] → [Destination] | [Outbound] | [Data types] | [Protocol + encryption status] |
 
 ### Access Vectors
 
@@ -124,6 +199,34 @@
 | Authentication | [Auth mechanisms: SSO, API keys, certificates, etc.] |
 | Authorization Levels | [Access levels and permissions] |
 | Access Duration | [Ongoing / Time-limited / On-demand] |
+
+### High-Risk Data Type Analysis (Optional)
+
+*For data types with unique risk profiles: exemptions from standard protections, unusual retention, or cross-layer re-identification risks.*
+
+**[Data Type] Risk Profile**
+
+**Exemption from Standard Protections**
+
+[Explain why this data type bypasses normal protections — e.g., life-safety requirements, operational needs, regulatory mandates.]
+
+**Time-Based Risk Implications**
+
+[For data types that accumulate over time without purging: explain expanding attack surface and compounding breach impact.]
+
+**Related Threats**
+
+| Threat ID | Description | Risk Level |
+|-----------|-------------|------------|
+| T-XXX | [Threat specific to this data type] | **High/Critical** |
+| T-XXX | [Threat specific to this data type] | **High/Critical** |
+
+**Regulatory Context**
+
+- **[Regulation]** — [Specific requirements this data type triggers]
+- **[Regulation]** — [Tension between standard practice and exemption rationale]
+
+> **Note:** [Compensating controls or mitigations that should be evaluated.]
 
 ---
 
@@ -135,6 +238,16 @@
 |-----------|--------|------------|--------|------------|---------------|---------------------|
 | T-001 | [Threat description] | [H/M/L] | [H/M/L] | **High** | [Technique ID] | [Mitigating requirement] |
 | T-002 | [Threat description] | [H/M/L] | [H/M/L] | **High** | [Technique ID] | [Mitigating requirement] |
+
+### AI/ML Risk Rationale (Optional)
+
+*For assessments involving AI/ML components: document model risk classification and training data concerns.*
+
+Per [assessment context], this system operates [AI/ML component description]. These models [training/prediction behavior] on [data source].
+
+**Baseline AI Risks:** [Description of AI-specific risks — e.g., training data poisoning, model extraction, adversarial inputs].
+
+**NIST AI RMF Classification:** [High risk / Limited risk / Minimal risk] — Document if model affects safety, rights, or critical decisions.
 
 ---
 
@@ -168,8 +281,24 @@
 
 ### Information Sources
 
-1. **[Source name]** — [URL](https://example.com) — [Brief description]
-2. **[Source name]** — [URL](https://example.com) — [Brief description]
+#### Vendor Documentation
+
+| Vendor | Resource | URL | Purpose |
+|--------|----------|-----|---------|
+| **[Vendor name]** | [Document name] | [URL](https://example.com) | [What this source informed] |
+
+#### Framework References
+
+| Framework | URL | Purpose |
+|-----------|-----|---------|
+| **MITRE ATT&CK** | [MITRE ATT&CK Framework](https://attack.mitre.org/) | Threat technique mapping |
+| **MITRE ATLAS** | [MITRE ATLAS Framework](https://atlas.mitre.org/) | AI/ML-specific threats (if applicable) |
+
+#### Internal Documentation
+
+| Document | Date | Source | Key Finding |
+|----------|------|--------|-------------|
+| **[Document name]** | [YYYY-MM] | [Internal/Consumer-provided] | [Relevant finding from this source] |
 
 ### Assessment Confidence Levels
 

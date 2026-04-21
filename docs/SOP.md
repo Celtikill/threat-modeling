@@ -11,20 +11,6 @@
 | **Next Review** | 2026-09-23 |
 | **Owner** | Security Architecture Team |
 
-### Change History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 5.0 | 2026-04-15 | Restructured to 6-phase sprint model (added Phase 4: Data Population); added Feedback Loop as post-sprint activity; folded AI-enabled assessments into Type 2 and Type 3 as conditional elements; removed Type 2-AI and Type 3-AI as separate types; deduplicated type definitions (reference assessment-type-guide.md) |
-| 4.1 | 2026-03-23 | Added Phase 0 Intake and Scoping with intake template and consumer guide; expanded Phase 2 into type-specific variants (2A/2B/2C); created ASVS 5.0 security requirements template; added attack tree branches 6-14 and MITRE techniques for internal application and infrastructure types; generalized vendor-specific language across templates; added Jira Cloud intake issue type specification |
-| 4.0 | 2026-03-23 | Declared three assessment types (2A/2B/2C) with Phase 2 variant anchors; refocused to technical advisory analysis; 5 phases with vendor-only Phase 2 content |
-| 3.0 | 2026-02-19 | Refocused to technical advisory analysis; 6 phases collapsed to 5; extracted reference material to reference.md; removed compliance gatekeeping |
-| 2.2 | 2026-02-10 | Simplified risk scoring to qualitative High/Medium/Low |
-| 2.1 | 2026-02-10 | Added Findings Reference Catalog and Assumptions Register requirements |
-| 2.0 | 2025-09-18 | Added NIST CSF 2.0 alignment, BYOT model guidance, UX improvements |
-| 1.5 | 2025-06-01 | Added MITRE ATLAS for AI systems |
-| 1.0 | 2025-01-15 | Initial release |
-
 ---
 
 ## Quick Navigation
@@ -416,12 +402,48 @@ See the Diagram Reference section in reference.md for diagram examples and emoji
 - Security boundaries clearly shown
 - Failover paths represented for critical services
 
+### Source Documentation Patterns
+
+When documenting sources in Section 4 (Asset & Data Flow Analysis), use these patterns for clarity:
+
+**Document Age Notice:** Use blockquotes to flag source age and reliability concerns.
+```markdown
+> **Document Age Notice:** Architecture validated from SRC-2 (Data Platform Run Book, 
+> March 2024, ~2 years old). Terminology differs from SRC-1 which used alternative naming.
+```
+
+**Validation Note:** Cross-reference specific documentation sections.
+```markdown
+> **Validation Note:** Per [Source, section], `ROLE_NAME` has "access to all data on LAYER". 
+> This confirms personnel can access sensitive data.
+```
+
+**Source Age:** Inline callout for data freshness assessment.
+```markdown
+> **Source Age:** SRC-2 is RECENT (March 2024, ~2 years old) — reflects current implementation.
+```
+
+### When to Use Narrative Prose
+
+Section 4 is primarily table-based, but narrative prose adds value for:
+
+| Scenario | Prose Format |
+|----------|--------------|
+| **Data type exemptions** | Explain why a high-risk data type bypasses standard protections |
+| **Time-based risk accumulation** | Describe how risk grows as data accumulates over time |
+| **Source validation** | Document discrepancies between multiple sources |
+| **Architecture evolution** | Explain terminology changes or legacy naming |
+| **Regulatory tension** | Clarify where data handling creates compliance friction |
+
+Keep prose focused: 1-3 paragraphs maximum per subsection. Tables remain the primary format.
+
 ### Phase 1 Completion Checklist
 
 Before proceeding to Phase 2, confirm the following are addressed:
 
 - [ ] Data classification matrix completed for all data types
 - [ ] Data flow directions documented (inbound/outbound/bidirectional)
+- [ ] High-risk data types identified and documented (if applicable)
 - [ ] Context diagram created and validated
 - [ ] Integration points identified and documented
 
@@ -917,7 +939,50 @@ Before proceeding to Phase 4, confirm the following are addressed:
 
 ---
 
-### 3.5 Regulatory Reporting Requirements (Life-Safety Systems)
+### 3.5 Threat Scoping in Regulated Environments
+
+For assessments operating under regulatory frameworks (healthcare, finance, critical infrastructure), expand threat analysis to include sector-specific factors:
+
+**Life-Safety Impact Assessment**
+
+Systems supporting crisis intervention, emergency services, or patient care require elevated impact scoring:
+
+| Factor | Standard System | Life-Safety System |
+|--------|----------------|-------------------|
+| Confidentiality breach impact | Financial, reputational | Patient safety, mortality risk |
+| Availability requirement | Business continuity | Life-critical service delivery |
+| Regulatory exposure | Civil penalties | Criminal penalties, mandatory reporting |
+| Threat intelligence | Generic industry data | Sector-specific breach precedents |
+
+**Time-Based Risk Accumulation**
+
+Some data types create expanding attack surface over time. Document when:
+- Data accumulates indefinitely without retention limits
+- Breach impact grows linearly with data volume
+- No automated purging/anonymization mechanism exists
+- Historical data exposure compounds single-breach impact
+
+**Sector-Specific Threat Intelligence**
+
+Supplement generic threat intelligence with sector-specific data:
+- Industry breach reports (e.g., Verizon DBIR sector-specific data)
+- Regulatory enforcement actions and precedent
+- Known attack patterns against similar systems
+- Threat actor interest in sector data (e.g., healthcare PHI dark web pricing)
+
+**Risk Rating Elevations**
+
+Consider elevating to **Critical** when:
+- Life-safety impact is direct (not indirect)
+- Sector-specific precedent shows fatal outcomes from similar breaches
+- Data accumulation creates unbounded risk growth
+- Regulatory framework mandates breach reporting
+
+*Organization-specific canonical repositories should document sector-specific threat intelligence sources and life-safety criteria.*
+
+---
+
+### 3.6 Regulatory Reporting Requirements (Life-Safety Systems)
 
 For assessments involving **life-safety systems** (e.g., crisis intervention, emergency services, healthcare critical infrastructure):
 
@@ -971,6 +1036,66 @@ Transfer threat analysis results into the Supporting Analysis document:
 - [ ] Findings Reference Catalog entries created for each claim
 - [ ] Date of access recorded for all web sources
 
+### 4.4 Structured Data Capture (CSV Source of Truth)
+
+**CSV-First Workflow:** Populate structured CSV templates during analysis to serve as the source of truth when drafting markdown deliverables. This enables validation, traceability, and reuse across assessments.
+
+**Workflow:**
+
+```
+Step 1: During analysis, populate CSV files:
+    - threats.csv ← from attack tree analysis
+    - findings.csv ← from evidence review
+    - requirements.csv ← from control mapping
+
+Step 2: When drafting markdown, reference CSV data:
+    - Copy table rows into markdown documents
+    - CSV data is authoritative; markdown is presentation
+
+Step 3: Validate alignment (optional):
+    - Use consolidation tools to verify CSV → markdown alignment
+    - Discrepancies flag documentation drift
+```
+
+**CSV Templates:**
+
+| Template | Populated During | Contains | Output Location |
+|----------|------------------|----------|-----------------|
+| `threats.csv` | Phase 3 (Threat Analysis) | Threat catalog with ATT&CK/ATLAS mappings | `assessment/data/threats.csv` |
+| `findings.csv` | Phase 4 (Evidence Review) | Assessment findings with severity/status | `assessment/data/findings.csv` |
+| `requirements.csv` | Type 2/3 assessments (Control Selection) | Security requirements with SSR/ASVS refs | `assessment/data/requirements.csv` |
+
+**File Structure:**
+
+```
+assessment/
+├── data/                      # Structured source of truth (CSV)
+│   ├── threats.csv
+│   ├── findings.csv
+│   └── requirements.csv       # (Type 2/3 only)
+└── deliverables/              # Markdown documents (drafted from CSVs)
+    ├── {system}-threat-model.md
+    ├── {system}-supporting-analysis.md
+    └── {system}-requirements.md   # (Type 2/3 only)
+```
+
+**Baseline + Delta Pattern:**
+
+For change assessments against existing baselines, maintain separate CSVs:
+
+```
+data/
+├── threats.csv               # Current threat catalog (baseline + changes)
+├── threats-baseline.csv      # Frozen baseline (optional archive)
+├── findings.csv
+├── requirements.csv          # Current requirements (baseline + changes)
+└── requirements-baseline.csv   # Frozen baseline (optional archive)
+```
+
+Delta assessments populate the non-baseline CSVs with only new/changed items, then consolidate with baseline for complete coverage.
+
+**Reference:** See `/templates/csv/` for CSV templates and column definitions.
+
 ### Phase 4 Completion Checklist
 
 Before proceeding to Phase 5, confirm the following are addressed:
@@ -1004,13 +1129,46 @@ Before proceeding to Phase 5, confirm the following are addressed:
 | Medium | Industry standards, third-party assessments, public documentation |
 | Low | Inferred from general practices, incomplete information, assumptions |
 
-### 5.2 Report Structure (Lean Template)
+### 5.2 Executive Summary
 
-The threat model report should use the appropriate type-specific template ([1-vendor-template.md](../templates/lean-report/1-vendor-template.md), [2-application-template.md](../templates/lean-report/2-application-template.md), or [3-infrastructure-template.md](../templates/lean-report/3-infrastructure-template.md)). All templates define 7 numbered sections plus Document Control and Appendix A:
+The threat model report must include an Executive Summary that follows a standardized structure to ensure consistent communication of critical findings to leadership.
+
+**Executive Summary Structure:**
+
+| Section | Purpose | Format |
+|---------|---------|--------|
+| Executive Action Required | Urgent opening statement explaining number/severity of critical findings and why immediate executive attention is required | Centered bold heading + paragraph |
+| Security & Compliance Context | Regulatory implications (HIPAA, GDPR, etc.), operational/financial impact, grant or contract implications | 1-2 paragraphs |
+| Risk Quadrant Chart | Visual representation of Critical and High findings plotted by likelihood and impact | Mermaid quadrantChart |
+
+**Risk Quadrant Chart Requirements:**
+
+```mermaid
+quadrantChart
+    title Risk Matrix: [N] Critical/High Findings
+    x-axis Low Likelihood --> High Likelihood
+    y-axis Low Impact --> High Impact
+    quadrant-1 Immediate Action Required
+    quadrant-2 Catastrophic but Rare
+    quadrant-3 Low Priority
+    quadrant-4 Likely but Limited
+    "Finding Name": [likelihood, impact]
+    ...
+```
+
+- **Quadrant names** (must match exactly): Immediate Action Required, Catastrophic but Rare, Low Priority, Likely but Limited
+- **Critical findings:** Must be plotted (mandatory)
+- **High findings:** Plot if space permits (optional)
+- **Coordinates:** Scale 0.0-1.0 where 0.7+ impact = Critical, 0.5-0.7 = High
+
+### 5.3 Report Structure (Lean Template)
+
+The threat model report should use the appropriate type-specific template ([1-vendor-template.md](../templates/lean-report/1-vendor-template.md), [2-application-template.md](../templates/lean-report/2-application-template.md), or [3-infrastructure-template.md](../templates/lean-report/3-infrastructure-template.md)). All templates define 8 numbered sections plus Document Control and Appendix A:
 
 | Section | Purpose | Format |
 |---------|---------|--------|
 | Document Control | Version tracking, accountability | Table |
+| Executive Summary | Leadership-focused urgent action statement, compliance context, risk visualization | Structured subsections + Mermaid chart |
 | 1. Assessment Overview | Summary of subject, risk rating, and vendor recommendation (Type 1 only) | Table |
 | 2. Risk Management Summary | Critical findings and risk breakdown | Tables |
 | 3. System Profile and Context | Type-specific profile: Vendor Profile (Type 1) / System Profile (Type 2) / Infrastructure Scope Overview (Type 3) and integration details | Tables + blockquote callouts |
@@ -1049,6 +1207,9 @@ The **Supporting Analysis** document should conform to [supporting-analysis-temp
 Before proceeding to Phase 6, confirm the following are addressed:
 
 - [ ] Lean report populated per appropriate type-specific template
+- [ ] Executive Summary included with all required subsections (Executive Action Required, Security & Compliance Context, Risk Quadrant Chart)
+- [ ] Risk Quadrant Chart uses exact quadrant names: Immediate Action Required, Catastrophic but Rare, Low Priority, Likely but Limited
+- [ ] Critical findings plotted on Risk Quadrant Chart (mandatory); High findings plotted if space permits
 - [ ] Supporting analysis populated per supporting-analysis-template.md, including:
   - Intake Assumptions: document unvalidated assumptions with intake sources
   - Assessment Discoveries: document significant findings from research and corrections
@@ -1239,6 +1400,8 @@ Before the assessment moves from Draft to Final status:
 #### Report Completeness (per type-specific lean report template)
 
 - [ ] Document Control completed (version, date, assessor, business owner, status)
+- [ ] Executive Summary present with Executive Action Required heading, Security & Compliance Context, and Risk Quadrant Chart
+- [ ] Risk Quadrant Chart uses required quadrant names: Immediate Action Required, Catastrophic but Rare, Low Priority, Likely but Limited
 - [ ] Section 1: Assessment Overview table populated; Vendor Recommendation present and justified (Type 1 only)
 - [ ] Section 2: Critical findings and risk breakdown documented
 - [ ] Section 3: System profile (type-specific variant) and service integration summary populated
@@ -1302,6 +1465,26 @@ See [supporting-analysis-template.md](../templates/supporting-analysis-template.
 
 The template covers the complete analytical work product (attack trees, threat catalog, residual risk, assumptions register, findings catalog). All supporting analysis deliverables should conform to this template structure.
 
+### Security Requirements Templates
+
+| Template | Use When | Location |
+|----------|----------|----------|
+| Security Requirements | Type 2/3 baseline assessments | [security-requirements-template.md](../templates/security-requirements-template.md) |
+| Change Requirements | Delta/change assessments extending baseline | [change-requirements-template.md](../templates/change-requirements-template.md) |
+
+**Baseline + Delta Pattern:** For change assessments, maintain a frozen baseline requirements document and create a delta document with only new/modified requirements. Reference the baseline prerequisite table in the delta document to clarify which baseline requirements each delta extends.
+
+### Structured Data Templates (CSV)
+
+| Template | Purpose | Location |
+|----------|---------|----------|
+| Threats CSV | Threat catalog from attack tree analysis | [threats-template.csv](../templates/csv/threats-template.csv) |
+| Findings CSV | Assessment findings from evidence review | [findings-template.csv](../templates/csv/findings-template.csv) |
+| Requirements CSV | Security requirements from control mapping | [requirements-template.csv](../templates/csv/requirements-template.csv) |
+| CSV README | CSV-first workflow documentation | [csv/README.md](../templates/csv/README.md) |
+
+**CSV-First Workflow:** Populate CSV templates during Phase 3-4 analysis, then reference when drafting markdown deliverables in Phase 5. This creates a structured source of truth supporting validation and traceability.
+
 ### Reference Catalog
 
 See [reference.md](./reference.md) for the full reference catalog including MITRE ATT&CK techniques, attack tree branch library, risk assessment matrix, and diagram reference.
@@ -1324,3 +1507,19 @@ See [reference.md](./reference.md) for the full reference catalog including MITR
 | **ATT&CK** | MITRE Adversarial Tactics, Techniques, and Common Knowledge — framework of cyber threat tactics and techniques |
 | **CIS Benchmark** | Center for Internet Security configuration baselines for cloud platforms and operating systems |
 | **Security Requirements** | ASVS-aligned document produced for Type 2 and 3 assessments, mapping threats to mitigating requirements. Systems with AI features include AISVS requirements. |
+
+---
+
+## Change History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 5.0 | 2026-04-15 | Restructured to 6-phase sprint model (added Phase 4: Data Population); added Feedback Loop as post-sprint activity; folded AI-enabled assessments into Type 2 and Type 3 as conditional elements; removed Type 2-AI and Type 3-AI as separate types; deduplicated type definitions (reference assessment-type-guide.md) |
+| 4.1 | 2026-03-23 | Added Phase 0 Intake and Scoping with intake template and consumer guide; expanded Phase 2 into type-specific variants (2A/2B/2C); created ASVS 5.0 security requirements template; added attack tree branches 6-14 and MITRE techniques for internal application and infrastructure types; generalized vendor-specific language across templates; added Jira Cloud intake issue type specification |
+| 4.0 | 2026-03-23 | Declared three assessment types (2A/2B/2C) with Phase 2 variant anchors; refocused to technical advisory analysis; 5 phases with vendor-only Phase 2 content |
+| 3.0 | 2026-02-19 | Refocused to technical advisory analysis; 6 phases collapsed to 5; extracted reference material to reference.md; removed compliance gatekeeping |
+| 2.2 | 2026-02-10 | Simplified risk scoring to qualitative High/Medium/Low |
+| 2.1 | 2026-02-10 | Added Findings Reference Catalog and Assumptions Register requirements |
+| 2.0 | 2025-09-18 | Added NIST CSF 2.0 alignment, BYOT model guidance, UX improvements |
+| 1.5 | 2025-06-01 | Added MITRE ATLAS for AI systems |
+| 1.0 | 2025-01-15 | Initial release |

@@ -1,0 +1,4 @@
+Finding_ID,Threat_Ref,Description,Severity,Status,Evidence_Location,Responsible_Party,Due_Date,Notes
+F-001,"T-001","[Description of what was found during assessment]","[Critical/High/Medium/Low/Info]","[Open/In Progress/Remediated/Accepted]","[Path to evidence or 'See Section X']","[Team/Individual responsible]","[YYYY-MM-DD or 'N/A']","[Additional context or remediation guidance]"
+F-002,"","","","","","","",""
+F-003,"","","","","","","",""

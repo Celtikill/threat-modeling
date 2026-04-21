@@ -32,6 +32,8 @@ I root these requirements in standards (ASVS) relevant security scanners often r
 
 An artifact containing the full detail of my analysis, including complete attack trees, threat catalogs, noted assumptions (let's be real, there are always assumptions), reference material, and more.
 
+**CSV-First Workflow:** Analysis data is captured in structured CSV files (threats, findings, requirements) before drafting markdown deliverables. This creates a source of truth supporting validation and traceability. See [`templates/csv/`](templates/csv/).
+
 ## What Threat Modeling Is Not
 
 **Vulnerability Assessment** enumerates implementation-level flaws in deployed systems — misconfigurations, unpatched software, default credentials. Threat modeling evaluates design-level architecture and trust boundaries. Vulnerabilities discovered opportunistically during threat modeling are included in the analysis, but systematic enumeration is not the goal.
@@ -51,7 +53,9 @@ An artifact containing the full detail of my analysis, including complete attack
 | **Explore attack trees** | [`docs/attack-trees/`](docs/attack-trees/) |
 | **See example assessments** | [`examples/`](examples/) |
 | **Use the templates** | [`templates/`](templates/) |
+| **Capture data in CSVs first** | [`templates/csv/`](templates/csv/) |
 | **Understand the repository model** | [`docs/architecture/three-repo-model.md`](docs/architecture/three-repo-model.md) |
+| **Build enterprise program** | [`docs/enterprise-adoption-guide.md`](docs/enterprise-adoption-guide.md) |
 
 ### How It Works
 
@@ -73,6 +77,9 @@ graph TD
         I["Phase 6: Quality Review<br/>Days 8-10"]
         D --> E --> F --> G --> H --> I
     end
+
+    F -.->|Populates| X["CSV Source of Truth<br/>threats.csv / findings.csv<br/>requirements.csv"]
+    X -.->|References| H
 
     I -->|In Progress → Complete| J
 

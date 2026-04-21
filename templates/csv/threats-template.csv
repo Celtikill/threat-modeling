@@ -1,0 +1,4 @@
+Threat_ID,Category,Description,Likelihood,Impact,Risk_Level,MITRE_TECHNIQUE,Prerequisites,Prerequisites_Validated,Notes
+T-001,"[e.g., Initial Access, Data Exposure]","[Clear description of the threat scenario]","[Low/Medium/High]","[Low/Medium/High/Critical]","[Critical/High/Medium/Low]","[e.g., T1190 - Exploit Public-Facing Application]","[What conditions must exist for this threat to be viable]","[Yes/No/Partial - Has this been validated in the environment]","[Additional context, assumptions, or references]"
+T-002,"","","","","","","","",""
+T-003,"","","","","","","","",""
