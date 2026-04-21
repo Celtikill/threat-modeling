@@ -1,7 +1,20 @@
+---
+title: "Threat Model: [System Name]"
+subtitle: "[Context — e.g., ETL Pipeline for Analytics]"
+author: "[Name / Role]"
+date: "[YYYY-MM-DD]"
+version: "[1.0]"
+status: "[Draft / Draft-Reviewed / Final]"
+assessment_type: "Type 2: Internal Application"
+risk_rating: "[Critical / High / Medium / Low]"
+classification: "CONFIDENTIAL"
+---
+
 # Threat Model: [System Name] — [Context]
 
-<!-- Replace [System Name] with the system or pipeline name (e.g., "Financial Data Pipeline")
-     Replace [Context] with the use case or service description (e.g., "ETL for Analytics")
+<!-- Replace frontmatter values above and delete this comment block
+     [System Name] = system or pipeline name
+     [Context] = use case or service description
      This template is for Type 2: Internal Application assessments -->
 
 ---

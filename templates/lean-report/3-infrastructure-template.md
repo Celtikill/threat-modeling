@@ -1,7 +1,20 @@
+---
+title: "Threat Model: [Infrastructure Scope]"
+subtitle: "[Context — e.g., Production Environment Assessment]"
+author: "[Name / Role]"
+date: "[YYYY-MM-DD]"
+version: "[1.0]"
+status: "[Draft / Draft-Reviewed / Final]"
+assessment_type: "Type 3: Infrastructure-Only"
+risk_rating: "[Critical / High / Medium / Low]"
+classification: "CONFIDENTIAL"
+---
+
 # Threat Model: [Infrastructure Scope] — [Context]
 
-<!-- Replace [Infrastructure Scope] with the scope name (e.g., "AWS Multi-Account Posture")
-     Replace [Context] with the environment or purpose (e.g., "Production Environment")
+<!-- Replace frontmatter values above and delete this comment block
+     [Infrastructure Scope] = scope name (e.g., "AWS Multi-Account Posture")
+     [Context] = environment or purpose
      This template is for Type 3: Infrastructure-Only assessments -->
 
 ---

@@ -1,7 +1,20 @@
+---
+title: "Third-Party Vendor Threat Model: [Vendor Name]"
+subtitle: "[Context — e.g., CRM for Sales Operations]"
+author: "[Name / Role]"
+date: "[YYYY-MM-DD]"
+version: "[1.0]"
+status: "[Draft / Draft-Reviewed / Final]"
+assessment_type: "Type 1: Third-Party Vendor"
+risk_rating: "[Critical / High / Medium / Low]"
+classification: "CONFIDENTIAL"
+---
+
 # Third-Party Vendor Threat Model: [Vendor Name] — [Context]
 
-<!-- Replace [Vendor Name] with the vendor name (e.g., "ExampleCRM")
-     Replace [Context] with the use case or service description (e.g., "CRM for Sales Operations")
+<!-- Replace frontmatter values above and delete this comment block
+     [Vendor Name] = vendor name (e.g., "ExampleCRM")
+     [Context] = use case or service description
      This template is for Type 1: Third-Party Vendor assessments -->
 
 ---

@@ -1,9 +1,23 @@
+---
+title: "Supporting Analysis: [System/Vendor]"
+subtitle: "[Context — e.g., Technical Threat Analysis]"
+author: "[Name / Role]"
+date: "[YYYY-MM-DD]"
+version: "[1.0]"
+status: "[Draft / Draft-Reviewed / Final]"
+assessment_type: "[Type 1 / Type 2 / Type 3]"
+risk_rating: "[Critical / High / Medium / Low]"
+classification: "CONFIDENTIAL"
+lean_report: "[Link to corresponding lean report]"
+---
+
 # Supporting Analysis: [System/Vendor] — [Context]
 
-<!-- Replace [System/Vendor] with the subject name (see template.md title guidance) -->
-<!-- Replace [Context] with the use case or service description -->
-<!-- This is the retained analytical work product supporting the lean report (template.md). -->
-<!-- Audience: Security architect and technical reviewers. -->
+<!-- Replace frontmatter values above and delete this comment block
+     [System/Vendor] = subject name
+     [Context] = use case or service description
+     This is the retained analytical work product supporting the lean report
+     Audience: Security architect and technical reviewers -->
 
 ---
 
