@@ -11,20 +11,6 @@
 | **Next Review** | 2026-09-23 |
 | **Owner** | Security Architecture Team |
 
-### Change History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 5.0 | 2026-04-15 | Restructured to 6-phase sprint model (added Phase 4: Data Population); added Feedback Loop as post-sprint activity; folded AI-enabled assessments into Type 2 and Type 3 as conditional elements; removed Type 2-AI and Type 3-AI as separate types; deduplicated type definitions (reference assessment-type-guide.md) |
-| 4.1 | 2026-03-23 | Added Phase 0 Intake and Scoping with intake template and consumer guide; expanded Phase 2 into type-specific variants (2A/2B/2C); created ASVS 5.0 security requirements template; added attack tree branches 6-14 and MITRE techniques for internal application and infrastructure types; generalized vendor-specific language across templates; added Jira Cloud intake issue type specification |
-| 4.0 | 2026-03-23 | Declared three assessment types (2A/2B/2C) with Phase 2 variant anchors; refocused to technical advisory analysis; 5 phases with vendor-only Phase 2 content |
-| 3.0 | 2026-02-19 | Refocused to technical advisory analysis; 6 phases collapsed to 5; extracted reference material to reference.md; removed compliance gatekeeping |
-| 2.2 | 2026-02-10 | Simplified risk scoring to qualitative High/Medium/Low |
-| 2.1 | 2026-02-10 | Added Findings Reference Catalog and Assumptions Register requirements |
-| 2.0 | 2025-09-18 | Added NIST CSF 2.0 alignment, BYOT model guidance, UX improvements |
-| 1.5 | 2025-06-01 | Added MITRE ATLAS for AI systems |
-| 1.0 | 2025-01-15 | Initial release |
-
 ---
 
 ## Quick Navigation
@@ -1050,6 +1036,66 @@ Transfer threat analysis results into the Supporting Analysis document:
 - [ ] Findings Reference Catalog entries created for each claim
 - [ ] Date of access recorded for all web sources
 
+### 4.4 Structured Data Capture (CSV Source of Truth)
+
+**CSV-First Workflow:** Populate structured CSV templates during analysis to serve as the source of truth when drafting markdown deliverables. This enables validation, traceability, and reuse across assessments.
+
+**Workflow:**
+
+```
+Step 1: During analysis, populate CSV files:
+    - threats.csv ← from attack tree analysis
+    - findings.csv ← from evidence review
+    - requirements.csv ← from control mapping
+
+Step 2: When drafting markdown, reference CSV data:
+    - Copy table rows into markdown documents
+    - CSV data is authoritative; markdown is presentation
+
+Step 3: Validate alignment (optional):
+    - Use consolidation tools to verify CSV → markdown alignment
+    - Discrepancies flag documentation drift
+```
+
+**CSV Templates:**
+
+| Template | Populated During | Contains | Output Location |
+|----------|------------------|----------|-----------------|
+| `threats.csv` | Phase 3 (Threat Analysis) | Threat catalog with ATT&CK/ATLAS mappings | `assessment/data/threats.csv` |
+| `findings.csv` | Phase 4 (Evidence Review) | Assessment findings with severity/status | `assessment/data/findings.csv` |
+| `requirements.csv` | Type 2/3 assessments (Control Selection) | Security requirements with SSR/ASVS refs | `assessment/data/requirements.csv` |
+
+**File Structure:**
+
+```
+assessment/
+├── data/                      # Structured source of truth (CSV)
+│   ├── threats.csv
+│   ├── findings.csv
+│   └── requirements.csv       # (Type 2/3 only)
+└── deliverables/              # Markdown documents (drafted from CSVs)
+    ├── {system}-threat-model.md
+    ├── {system}-supporting-analysis.md
+    └── {system}-requirements.md   # (Type 2/3 only)
+```
+
+**Baseline + Delta Pattern:**
+
+For change assessments against existing baselines, maintain separate CSVs:
+
+```
+data/
+├── threats.csv               # Current threat catalog (baseline + changes)
+├── threats-baseline.csv      # Frozen baseline (optional archive)
+├── findings.csv
+├── requirements.csv          # Current requirements (baseline + changes)
+└── requirements-baseline.csv   # Frozen baseline (optional archive)
+```
+
+Delta assessments populate the non-baseline CSVs with only new/changed items, then consolidate with baseline for complete coverage.
+
+**Reference:** See `/templates/csv/` for CSV templates and column definitions.
+
 ### Phase 4 Completion Checklist
 
 Before proceeding to Phase 5, confirm the following are addressed:
@@ -1419,6 +1465,26 @@ See [supporting-analysis-template.md](../templates/supporting-analysis-template.
 
 The template covers the complete analytical work product (attack trees, threat catalog, residual risk, assumptions register, findings catalog). All supporting analysis deliverables should conform to this template structure.
 
+### Security Requirements Templates
+
+| Template | Use When | Location |
+|----------|----------|----------|
+| Security Requirements | Type 2/3 baseline assessments | [security-requirements-template.md](../templates/security-requirements-template.md) |
+| Change Requirements | Delta/change assessments extending baseline | [change-requirements-template.md](../templates/change-requirements-template.md) |
+
+**Baseline + Delta Pattern:** For change assessments, maintain a frozen baseline requirements document and create a delta document with only new/modified requirements. Reference the baseline prerequisite table in the delta document to clarify which baseline requirements each delta extends.
+
+### Structured Data Templates (CSV)
+
+| Template | Purpose | Location |
+|----------|---------|----------|
+| Threats CSV | Threat catalog from attack tree analysis | [threats-template.csv](../templates/csv/threats-template.csv) |
+| Findings CSV | Assessment findings from evidence review | [findings-template.csv](../templates/csv/findings-template.csv) |
+| Requirements CSV | Security requirements from control mapping | [requirements-template.csv](../templates/csv/requirements-template.csv) |
+| CSV README | CSV-first workflow documentation | [csv/README.md](../templates/csv/README.md) |
+
+**CSV-First Workflow:** Populate CSV templates during Phase 3-4 analysis, then reference when drafting markdown deliverables in Phase 5. This creates a structured source of truth supporting validation and traceability.
+
 ### Reference Catalog
 
 See [reference.md](./reference.md) for the full reference catalog including MITRE ATT&CK techniques, attack tree branch library, risk assessment matrix, and diagram reference.
@@ -1441,3 +1507,19 @@ See [reference.md](./reference.md) for the full reference catalog including MITR
 | **ATT&CK** | MITRE Adversarial Tactics, Techniques, and Common Knowledge — framework of cyber threat tactics and techniques |
 | **CIS Benchmark** | Center for Internet Security configuration baselines for cloud platforms and operating systems |
 | **Security Requirements** | ASVS-aligned document produced for Type 2 and 3 assessments, mapping threats to mitigating requirements. Systems with AI features include AISVS requirements. |
+
+---
+
+## Change History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 5.0 | 2026-04-15 | Restructured to 6-phase sprint model (added Phase 4: Data Population); added Feedback Loop as post-sprint activity; folded AI-enabled assessments into Type 2 and Type 3 as conditional elements; removed Type 2-AI and Type 3-AI as separate types; deduplicated type definitions (reference assessment-type-guide.md) |
+| 4.1 | 2026-03-23 | Added Phase 0 Intake and Scoping with intake template and consumer guide; expanded Phase 2 into type-specific variants (2A/2B/2C); created ASVS 5.0 security requirements template; added attack tree branches 6-14 and MITRE techniques for internal application and infrastructure types; generalized vendor-specific language across templates; added Jira Cloud intake issue type specification |
+| 4.0 | 2026-03-23 | Declared three assessment types (2A/2B/2C) with Phase 2 variant anchors; refocused to technical advisory analysis; 5 phases with vendor-only Phase 2 content |
+| 3.0 | 2026-02-19 | Refocused to technical advisory analysis; 6 phases collapsed to 5; extracted reference material to reference.md; removed compliance gatekeeping |
+| 2.2 | 2026-02-10 | Simplified risk scoring to qualitative High/Medium/Low |
+| 2.1 | 2026-02-10 | Added Findings Reference Catalog and Assumptions Register requirements |
+| 2.0 | 2025-09-18 | Added NIST CSF 2.0 alignment, BYOT model guidance, UX improvements |
+| 1.5 | 2025-06-01 | Added MITRE ATLAS for AI systems |
+| 1.0 | 2025-01-15 | Initial release |
