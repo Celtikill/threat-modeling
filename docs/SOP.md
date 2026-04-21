@@ -416,12 +416,48 @@ See the Diagram Reference section in reference.md for diagram examples and emoji
 - Security boundaries clearly shown
 - Failover paths represented for critical services
 
+### Source Documentation Patterns
+
+When documenting sources in Section 4 (Asset & Data Flow Analysis), use these patterns for clarity:
+
+**Document Age Notice:** Use blockquotes to flag source age and reliability concerns.
+```markdown
+> **Document Age Notice:** Architecture validated from SRC-2 (Data Platform Run Book, 
+> March 2024, ~2 years old). Terminology differs from SRC-1 which used alternative naming.
+```
+
+**Validation Note:** Cross-reference specific documentation sections.
+```markdown
+> **Validation Note:** Per [Source, section], `ROLE_NAME` has "access to all data on LAYER". 
+> This confirms personnel can access sensitive data.
+```
+
+**Source Age:** Inline callout for data freshness assessment.
+```markdown
+> **Source Age:** SRC-2 is RECENT (March 2024, ~2 years old) — reflects current implementation.
+```
+
+### When to Use Narrative Prose
+
+Section 4 is primarily table-based, but narrative prose adds value for:
+
+| Scenario | Prose Format |
+|----------|--------------|
+| **Data type exemptions** | Explain why a high-risk data type bypasses standard protections |
+| **Time-based risk accumulation** | Describe how risk grows as data accumulates over time |
+| **Source validation** | Document discrepancies between multiple sources |
+| **Architecture evolution** | Explain terminology changes or legacy naming |
+| **Regulatory tension** | Clarify where data handling creates compliance friction |
+
+Keep prose focused: 1-3 paragraphs maximum per subsection. Tables remain the primary format.
+
 ### Phase 1 Completion Checklist
 
 Before proceeding to Phase 2, confirm the following are addressed:
 
 - [ ] Data classification matrix completed for all data types
 - [ ] Data flow directions documented (inbound/outbound/bidirectional)
+- [ ] High-risk data types identified and documented (if applicable)
 - [ ] Context diagram created and validated
 - [ ] Integration points identified and documented
 
@@ -917,7 +953,50 @@ Before proceeding to Phase 4, confirm the following are addressed:
 
 ---
 
-### 3.5 Regulatory Reporting Requirements (Life-Safety Systems)
+### 3.5 Threat Scoping in Regulated Environments
+
+For assessments operating under regulatory frameworks (healthcare, finance, critical infrastructure), expand threat analysis to include sector-specific factors:
+
+**Life-Safety Impact Assessment**
+
+Systems supporting crisis intervention, emergency services, or patient care require elevated impact scoring:
+
+| Factor | Standard System | Life-Safety System |
+|--------|----------------|-------------------|
+| Confidentiality breach impact | Financial, reputational | Patient safety, mortality risk |
+| Availability requirement | Business continuity | Life-critical service delivery |
+| Regulatory exposure | Civil penalties | Criminal penalties, mandatory reporting |
+| Threat intelligence | Generic industry data | Sector-specific breach precedents |
+
+**Time-Based Risk Accumulation**
+
+Some data types create expanding attack surface over time. Document when:
+- Data accumulates indefinitely without retention limits
+- Breach impact grows linearly with data volume
+- No automated purging/anonymization mechanism exists
+- Historical data exposure compounds single-breach impact
+
+**Sector-Specific Threat Intelligence**
+
+Supplement generic threat intelligence with sector-specific data:
+- Industry breach reports (e.g., Verizon DBIR sector-specific data)
+- Regulatory enforcement actions and precedent
+- Known attack patterns against similar systems
+- Threat actor interest in sector data (e.g., healthcare PHI dark web pricing)
+
+**Risk Rating Elevations**
+
+Consider elevating to **Critical** when:
+- Life-safety impact is direct (not indirect)
+- Sector-specific precedent shows fatal outcomes from similar breaches
+- Data accumulation creates unbounded risk growth
+- Regulatory framework mandates breach reporting
+
+*Organization-specific canonical repositories should document sector-specific threat intelligence sources and life-safety criteria.*
+
+---
+
+### 3.6 Regulatory Reporting Requirements (Life-Safety Systems)
 
 For assessments involving **life-safety systems** (e.g., crisis intervention, emergency services, healthcare critical infrastructure):
 
@@ -1082,6 +1161,9 @@ The **Supporting Analysis** document should conform to [supporting-analysis-temp
 Before proceeding to Phase 6, confirm the following are addressed:
 
 - [ ] Lean report populated per appropriate type-specific template
+- [ ] Executive Summary included with all required subsections (Executive Action Required, Security & Compliance Context, Risk Quadrant Chart)
+- [ ] Risk Quadrant Chart uses exact quadrant names: Immediate Action Required, Catastrophic but Rare, Low Priority, Likely but Limited
+- [ ] Critical findings plotted on Risk Quadrant Chart (mandatory); High findings plotted if space permits
 - [ ] Supporting analysis populated per supporting-analysis-template.md, including:
   - Intake Assumptions: document unvalidated assumptions with intake sources
   - Assessment Discoveries: document significant findings from research and corrections
@@ -1272,6 +1354,8 @@ Before the assessment moves from Draft to Final status:
 #### Report Completeness (per type-specific lean report template)
 
 - [ ] Document Control completed (version, date, assessor, business owner, status)
+- [ ] Executive Summary present with Executive Action Required heading, Security & Compliance Context, and Risk Quadrant Chart
+- [ ] Risk Quadrant Chart uses required quadrant names: Immediate Action Required, Catastrophic but Rare, Low Priority, Likely but Limited
 - [ ] Section 1: Assessment Overview table populated; Vendor Recommendation present and justified (Type 1 only)
 - [ ] Section 2: Critical findings and risk breakdown documented
 - [ ] Section 3: System profile (type-specific variant) and service integration summary populated

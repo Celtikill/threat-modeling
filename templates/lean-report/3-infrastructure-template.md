@@ -20,6 +20,45 @@
 
 ---
 
+## Executive Summary
+
+*Leadership-focused urgent action statement with security/compliance context and risk visualization.*
+
+### Executive Action Required
+
+\begin{center}
+\textbf{\large Executive Action Required}
+\end{center}
+
+**[Number] critical findings** expose infrastructure [scope description] to potential compromise. [One-sentence summary of combined risk — e.g., "The combination of overprivileged IAM roles and unencrypted storage creates pathways for data exfiltration and regulatory violations"]. Left unaddressed, these vulnerabilities could expose [organization] to [specific consequences]. Immediate executive attention is required to prioritize remediation of [top 1-2 risk categories].
+
+### Security & Compliance Context
+
+[2-3 paragraphs covering:]
+- **Regulatory implications:** Applicable frameworks (HIPAA, GDPR, SOC 2, etc.) and infrastructure-specific obligations
+- **Operational impact:** Service disruption, data loss, cross-account lateral movement
+- **Financial exposure:** Breach costs, compliance penalties, business interruption
+
+### Risk Quadrant Chart
+
+```mermaid
+quadrantChart
+    title Risk Matrix: [N] Critical/High Findings
+    x-axis Low Likelihood --> High Likelihood
+    y-axis Low Impact --> High Impact
+    quadrant-1 Immediate Action Required
+    quadrant-2 Catastrophic but Rare
+    quadrant-3 Low Priority
+    quadrant-4 Likely but Limited
+    "TM-001 Finding": [0.75, 0.85]
+    "TM-002 Finding": [0.60, 0.90]
+    "TM-003 Finding": [0.85, 0.75]
+```
+
+*Plot Critical findings (0.7+ impact) mandatorily. Plot High findings (0.5-0.7 impact) if space permits.*
+
+---
+
 ## 1. Assessment Overview
 
 *Key facts about this assessment in a single scannable table.*

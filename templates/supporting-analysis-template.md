@@ -57,6 +57,18 @@
 | **Prior Baseline Reference** | [Link to prior baseline, if Delta/Re-baseline] |
 | **Baseline Date** | [Date of prior baseline, if applicable] |
 
+### System Scope Declaration
+
+<!-- Structured scope definition for scannable system context. Use for complex systems with multiple components or data flows. -->
+
+| Aspect | Description |
+|--------|-------------|
+| **Baseline System** | [Complete system description — what the system does, what it handles] |
+| **Data Sources** | [List of upstream data sources — APIs, files, streams, databases] |
+| **Ingestion Patterns** | [How data enters — connectors, agents, APIs, batch, streaming] |
+| **Processing Stages** | [Key transformation/processing stages if multi-stage architecture] |
+| **Egress Points** | [Where data exits — APIs, files, reports, downstream systems] |
+
 ### Baseline System Description
 
 <!-- For Baseline/Re-baseline modes: Complete system description. For Delta mode: System as it existed pre-change. -->
@@ -206,6 +218,11 @@ Before proceeding, verify:
 
 ### Branch 1: [Branch Name]
 
+<!-- Optional introductory callout: Summarize branch risk profile and action items -->
+
+> **[N] [Risk]-risk threats** in this branch—[brief threat summary]—[require/present/suggest] [key concern]. 
+> **Action needed:** [Specific recommended action for this branch's threats].
+
 **ASVS Chapters:** V11, V12, V13 | **AISVS Chapters:** C4
 
 | Threat ID | Threat | Likelihood | Impact | Risk Level | MITRE ATT&CK | ASVS Ref | AISVS Ref | Rationale |
@@ -283,10 +300,10 @@ Before proceeding, verify:
 
 ### High-Rated Threats — Residual Risk After Mitigations
 
-| Threat ID | Threat | Pre-Mitigation Risk | Mitigating Requirements | Residual Risk | Notes |
+| Threat ID | Threat | Pre-Mitigation Risk | Recommended Mitigations | Residual Risk | Notes |
 |-----------|--------|---------------------|-------------------------|---------------|-------|
-| [T-001] | [Threat description] | **High** | [Key mitigations] | [H/M/L] | [Residual risk justification] |
-| [T-002] | [Threat description] | **High** | [Key mitigations] | [H/M/L] | [Residual risk justification] |
+| [T-001] | [Threat description] | **High** | [Specific technical/operational controls] | [H/M/L] | [Caveats, validation status, why residual risk remains] |
+| [T-002] | [Threat description] | **High** | [Specific technical/operational controls] | [H/M/L] | [Caveats, validation status, why residual risk remains] |
 
 <!-- Include all High-rated threats from the Complete Threat Catalog -->
 
@@ -421,6 +438,17 @@ Before proceeding, verify:
 *Comprehensive, hyperlinked source catalog for every finding and claim. See SOP Cross-Cutting Requirements.*
 
 <!-- One subsection per vendor/system assessed, plus sections for regulatory/framework and threat intelligence sources -->
+
+### Security Assessment Findings
+
+<!-- For Type 2 (Application) and Type 3 (Infrastructure) assessments with code review or configuration analysis. Documents direct observations from source review that map to threats. -->
+
+| Finding ID | Description | Source | Risk | Impact | Mapped Threat |
+|------------|-------------|--------|------|--------|---------------|
+| [F-001] | [Brief finding — e.g., "MD5 tokenization cryptographically broken"] | [`file/path.ext` lines X-Y] | **[Critical/High/Medium]** | [Impact if exploited] | [T-XXX] |
+| [F-002] | [Brief finding description] | [`file/path.ext` lines X-Y] | **[Risk level]** | [Impact description] | [T-XXX] |
+
+> **Finding-to-Threat Mapping:** Findings become threats when they enable attacker exploitation. Each finding maps to one or more T-XXX threats in the Complete Threat Catalog.
 
 ### [System/Vendor Name]
 

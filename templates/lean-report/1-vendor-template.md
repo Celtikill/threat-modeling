@@ -20,6 +20,45 @@
 
 ---
 
+## Executive Summary
+
+*Leadership-focused urgent action statement with vendor risk context and recommendation impact.*
+
+### Executive Action Required
+
+\begin{center}
+\textbf{\large Executive Action Required}
+\end{center}
+
+**[Number] critical findings** in the [Vendor Name] assessment [support/constrain] the proposed vendor relationship. [One-sentence summary of combined risk]. The **Vendor Recommendation** of **[Proceed / Proceed with Conditions / Do Not Proceed]** reflects these findings. Immediate executive attention is required to [action — e.g., "approve conditional onboarding with mandatory mitigations" / "evaluate alternative vendors" / "confirm risk acceptance for identified gaps"].
+
+### Security & Compliance Context
+
+[2-3 paragraphs covering:]
+- **Vendor ecosystem risk:** Supply chain implications, data residency concerns, fourth-party exposure
+- **Regulatory implications:** Frameworks requiring vendor due diligence (HIPAA BAA, GDPR Article 28, SOC 2 CC9.2, etc.)
+- **Business impact:** Contract value, integration criticality, switching costs
+
+### Risk Quadrant Chart
+
+```mermaid
+quadrantChart
+    title Risk Matrix: [N] Critical/High Findings
+    x-axis Low Likelihood --> High Likelihood
+    y-axis Low Impact --> High Impact
+    quadrant-1 Immediate Action Required
+    quadrant-2 Catastrophic but Rare
+    quadrant-3 Low Priority
+    quadrant-4 Likely but Limited
+    "TM-001 Finding": [0.75, 0.85]
+    "TM-002 Finding": [0.60, 0.90]
+    "TM-003 Finding": [0.85, 0.75]
+```
+
+*Plot Critical findings (0.7+ impact) mandatorily. Plot High findings (0.5-0.7 impact) if space permits.*
+
+---
+
 ## 1. Assessment Overview
 
 *Key facts about this assessment in a single scannable table.*
