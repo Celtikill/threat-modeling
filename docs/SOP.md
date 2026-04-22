@@ -644,6 +644,77 @@ When information is derived from code review rather than intake documentation, r
 - [ ] Differences between environments noted (dev vs staging vs prod)
 - [ ] Assumptions documented where code was unclear or incomplete
 
+##### 2.1b Code Review Feedback Loop (Internal Application)
+
+**Objective:** Ensure implementation-level findings from code review directly inform and update design-level threat analysis, attack trees, and requirements.
+
+**Core Principle:** Vulnerabilities discovered during code review are **evidence**, not primary deliverables. They validate, elevate, or reveal gaps in the architectural threat model.
+
+**Risk-Based Reporting:** While vulnerability enumeration is not the primary purpose of threat modeling, **Critical and High-risk vulnerabilities identified during code review are reported as findings according to their risk level.** These are incidental findings that reveal architectural threats and prioritize requirements—they are always threat-rooted and requirement-aligned.
+
+**Feedback Loop Workflow:**
+
+```
+Code Finding → Threat Alignment (existing or new) → Risk Adjustment →
+Requirement Update → Inline Documentation Refresh
+```
+
+**No Sprint Pause:** Updates occur inline during the assessment. Only truly exceptional findings (active exploitation, imminent systemic failure) warrant informal escalation.
+
+**Step 1: Threat Alignment Decision**
+
+For each vulnerability or security-relevant finding, determine:
+
+| Question | Finding Maps To... |
+|----------|-------------------|
+| Is this attack vector already represented in the existing attack tree for this system? | **Existing Threat** — Document as Finding; add evidence to threat |
+| Is this a new attack vector, component, or data flow not previously analyzed? | **Novel Threat** — Add to attack tree; complete threat analysis |
+| Does this exist in an undocumented component or endpoint? | **Attack Surface Expansion** — Update Phase 1 data flows; add threat |
+| Does this demonstrate a threat is more severe than initially rated? | **Risk Reinforcement** — Consider elevation; update threat evidence |
+
+**Step 2: Inline Updates**
+
+Update CSVs and documentation immediately upon finding:
+
+| Finding Type | threats.csv | findings.csv | requirements.csv |
+|-------------|-------------|--------------|------------------|
+| Maps to existing threat | Add Evidence column entry | Add finding with Threat_Ref | Elevate priority if warranted |
+| Novel threat (new branch) | Add new threat row | Add finding with Threat_Ref | Add new requirement(s) |
+| Attack surface expansion | Add new threat row + update branches | Add finding | Add/update requirements |
+
+**Step 3: Documentation Format**
+
+When a finding reinforces an existing threat:
+
+```markdown
+**Finding:** SQL injection in user search (src/search/handlers.py:89)
+**Threat Alignment:** T-007 (Branch 6.2)
+**Evidence Value:** String concatenation confirms exploitability
+**Risk Impact:** Reinforces High likelihood rating
+**Requirement Impact:** Elevate V6.1 to Required (was Recommended)
+```
+
+When a finding creates a new threat:
+
+```markdown
+**Finding:** GraphQL query depth DoS (src/graphql/schema.py:45)
+**Threat Alignment:** NEW — T-015 (GraphQL Resource Exhaustion)
+**Attack Tree Update:** Add Branch 6.5 "GraphQL Layer Exploitation"
+**Evidence Value:** First demonstration of GraphQL attack surface
+**Requirement Impact:** Add V6.8 (GraphQL query depth limiting)
+```
+
+**Step 4: Exceptional Escalation (Rare)**
+
+Only escalate informally for:
+- Critical findings with active exploitation
+- Imminent public disclosure
+- Systemic architectural failure (may trigger Re-baseline mode)
+
+All other findings follow standard inline documentation.
+
+**Reference:** See [Internal Feedback Loops](./internal-feedback-loops.md) for complete guidance.
+
 #### 2.2 Attack Tree Threat Analysis
 
 **Objective:** Systematically identify threats using attack trees mapped to application trust boundaries

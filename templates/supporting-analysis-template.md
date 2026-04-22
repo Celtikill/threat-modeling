@@ -491,6 +491,38 @@ Before proceeding, verify:
 
 ---
 
+## Phase 2B Code Review Discoveries
+
+<!-- For Type 2 (Internal Application) assessments: Document vulnerabilities and security-relevant findings discovered during Phase 2B code review. These findings inform and update the architectural threat model. -->
+
+*Implementation-level findings from code review that validate, elevate, or reveal gaps in the design-level threat analysis. Findings are evidence, not primary deliverables — they reinforce the threat model. **Critical and High-risk findings are reported according to their risk level** as incidental discoveries that reveal threats and prioritize requirements.*
+
+**Discovery Log:**
+
+| Finding ID | Source Location | Finding Summary | Threat Alignment | Evidence Value | Requirement Impact | Status |
+|------------|-----------------|-----------------|------------------|----------------|-------------------|--------|
+| F-XXX | src/path/file.py:NN | [Brief description] | T-XXX (existing) or NEW T-YYY | Reinforces/Elevates/Reveals | [Priority change or new req] | Documented |
+
+**Novel Attack Vectors (New Threats Added):**
+
+| Finding ID | New Threat ID | Attack Tree Branch | Rationale |
+|------------|---------------|-------------------|-----------|
+| F-XXX | T-YYY | Branch X.Y (new sub-branch) | [Why this is novel for this system] |
+
+**Risk Elevations (Based on Code Evidence):**
+
+| Threat ID | Original Risk | Finding Evidence | Revised Risk | Rationale |
+|-----------|---------------|------------------|--------------|-----------|
+| T-XXX | Medium | [Code location + finding] | High | [Evidence justifies elevation] |
+
+**Attack Surface Expansions (Undocumented Components):**
+
+| Finding ID | Component/Endpoint | Phase 1 Update | New Threat ID | Documentation |
+|------------|-------------------|----------------|---------------|---------------|
+| F-XXX | /api/v1/admin/reset | Added to Section 4 | T-ZZZ | [Reference to data flow update] |
+
+---
+
 ## Engineering Discovery Questionnaire
 
 <!-- OPTIONAL: Include this section for Type 2 (Internal Application) assessments where direct stakeholder interviews
