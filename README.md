@@ -56,6 +56,7 @@ An artifact containing the full detail of my analysis, including complete attack
 | **Capture data in CSVs first** | [`templates/csv/`](templates/csv/) |
 | **Understand the repository model** | [`docs/architecture/three-repo-model.md`](docs/architecture/three-repo-model.md) |
 | **Build enterprise program** | [`docs/enterprise-adoption-guide.md`](docs/enterprise-adoption-guide.md) |
+| **Understand code review feedback loops** | [`docs/internal-feedback-loops.md`](docs/internal-feedback-loops.md) |
 
 ### How It Works
 

@@ -64,6 +64,8 @@ assessment/
 | `MITRE_TECHNIQUE` | ATT&CK technique ID/name | T1190 - Exploit Public-Facing Application |
 | `Prerequisites` | Conditions required for threat | Public endpoint exposed to internet |
 | `Prerequisites_Validated` | Confirmed in environment? | Yes |
+| `Evidence_From_Code_Review` | Finding ID + location that validates threat | F-003: src/auth/handlers.py:45 - SQL injection confirms T-007 |
+| `Source_Discovery` | Where threat was first identified | Phase 2B code review - novel vector |
 | `Notes` | Additional context | See attack tree Branch 3.2 |
 
 ### findings.csv
@@ -71,14 +73,16 @@ assessment/
 | Column | Description | Example |
 |--------|-------------|---------|
 | `Finding_ID` | Unique identifier (F-XXX) | F-001 |
+| `Source_Location` | Code/evidence location | src/api/handlers.py:89 |
 | `Threat_Ref` | Related Threat_ID(s) | T-001 |
-| `Description` | What was found | TLS 1.0 still enabled on ingress |
+| `Threat_Alignment_Type` | How finding relates to threat | Reinforces / Novel / Expands |
+| `Description` | What was found | SQL injection via string concatenation |
 | `Severity` | Finding severity | High |
 | `Status` | Current state | Open |
 | `Evidence_Location` | Where evidence is stored | See Section 4.2 or `/evidence/tls-scan/` |
 | `Responsible_Party` | Who fixes it | Platform Engineering |
 | `Due_Date` | Target remediation date | 2025-06-01 |
-| `Notes` | Additional context | Blocks HIPAA compliance |
+| `Notes` | Additional context | Elevates V6.1 to Required; see T-007 evidence |
 
 ### requirements.csv
 
@@ -110,6 +114,52 @@ data/
 ```
 
 Delta assessments populate the non-baseline CSVs with only new/changed items.
+
+---
+
+## Phase 2B Feedback Loop Workflow
+
+For Type 2 (Internal Application) assessments, code review findings populate CSVs with architectural evidence:
+
+### Finding → Threat Alignment
+
+```
+Code Review Discovery
+    │
+    ├──► Maps to existing threat ─────┐
+    │   (Reinforces risk rating)       │
+    │                                  ▼
+    ├──► Novel attack vector ───────► Update threats.csv
+    │   (Creates new threat)           │ Add Evidence_From_Code_Review
+    │                                  │ Document Source_Discovery
+    │                                  ▼
+    └──► Attack surface expansion ───► Update findings.csv
+        (Undocumented component)       │ Set Threat_Alignment_Type
+                                       │ Link to Threat_Ref
+                                       ▼
+                                  Update requirements.csv
+                                  (Elevate or add requirements)
+```
+
+### Workflow Steps
+
+**Step 1: Code Review Discovery**
+- Identify vulnerability or security-relevant pattern
+- Determine novelty: Is this vector already in the attack tree?
+
+**Step 2: Threat Alignment**
+- **Reinforces existing:** Add evidence to `Evidence_From_Code_Review`
+- **Novel vector:** Add new threat row; mark `Source_Discovery`
+- **Expands surface:** Add finding with `Threat_Alignment_Type = Expands`
+
+**Step 3: Requirement Impact**
+- Update `requirements.csv` Priority (elevate) or add new row
+
+**Step 4: Inline Documentation**
+- All updates occur during sprint (no pause)
+- Populate Supporting Analysis "Phase 2B Code Review Discoveries" section
+
+See [Internal Feedback Loops](../../docs/internal-feedback-loops.md) for complete guidance.
 
 ---
 
