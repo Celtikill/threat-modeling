@@ -5,10 +5,18 @@ author: "[Name / Role]"
 date: "[YYYY-MM-DD]"
 version: "[1.0]"
 status: "[Draft / Draft-Reviewed / Final]"
+assessor: "[Name / Role]"
+business_owner: "[Name / Title]"
 assessment_type: "[Type 1 / Type 2 / Type 3]"
+assessment_mode: "[Baseline / Delta / Re-baseline]"
+regulatory_context: "[HIPAA / 42 CFR Part 2 / SOC 2 / None]"
+life_safety_critical: "[Yes / No]"
 risk_rating: "[Critical / High / Medium / Low]"
-classification: "CONFIDENTIAL"
+classification: "[CONFIDENTIAL / Internal / Public]"
 lean_report: "[Link to corresponding lean report]"
+template: "[path/to/latex-template.latex]"
+logo: "[path/to/organization-logo.png]"
+toc: true
 ---
 
 # Supporting Analysis: [System/Vendor] — [Context]
@@ -51,6 +59,7 @@ lean_report: "[Link to corresponding lean report]"
   - [Intake Assumptions](#intake-assumptions)
   - [Assessment Discoveries](#assessment-discoveries)
 - [Findings Reference Catalog](#findings-reference-catalog)
+- [Phase 2B Code Review Discoveries](#phase-2b-code-review-discoveries) *(Type 2 only)*
 - [Engineering Discovery Questionnaire](#engineering-discovery-questionnaire) *(Type 2 only, optional)*
 - [Glossary](#glossary)
 
@@ -290,11 +299,15 @@ Before proceeding, verify:
 [Why it matters — reference the relevant attack tree branch, business impact, exploitability. Connect to the threat scoring rationale from the catalog.]
 
 **Evidence:**
-[List all sources supporting this finding. Cite by type:]
-- Intake: [Section reference, e.g., "A5 — integration uses HTTP, not HTTPS"]
-- Documentation: [Vendor trust page, API docs, etc. — with access date]
-- Research: [MITRE ATT&CK reference, CVE, incident report]
-- Assumption: [If evidence is incomplete, note the assumption ID from the Assumptions Register]
+[List all sources supporting this finding. Cite by type using footnote pattern [^N]:]
+- Intake: [Section reference, e.g., "A5 — integration uses HTTP, not HTTPS"] [^1]
+- Documentation: [Vendor trust page, API docs, etc. — with access date] [^2]
+- Research: [MITRE ATT&CK reference, CVE, incident report] [^3]
+- Assumption: [If evidence is incomplete, note the assumption ID from the Assumptions Register] [^4]
+
+**Research Citation Example:**
+> [^3]: MITRE ATT&CK, "[Technique Name]", [URL], accessed YYYY-MM-DD
+> [^4]: Assumption A-XX: [Brief description], validated via [method]
 
 **Recommendation:**
 [Specific, actionable mitigating requirement. The security requirements document (Type 2/3) will formalize this using prescriptive language (MUST/SHOULD).]
@@ -466,10 +479,12 @@ Before proceeding, verify:
 
 ### [System/Vendor Name]
 
-| Finding | Source | URL | Access Date |
-|---------|--------|-----|-------------|
-| [Specific claim or feature] | [Document or page name] | [https://...] | [YYYY-MM-DD] |
-| [Specific claim or feature] | [Document or page name] | [https://...] | [YYYY-MM-DD] |
+| Finding | Source | URL | Access Date | Citation |
+|---------|--------|-----|-------------|----------|
+| [Specific claim or feature] | [Document or page name] | [https://...] | [YYYY-MM-DD] | [^N] |
+| [Specific claim or feature] | [Document or page name] | [https://...] | [YYYY-MM-DD] | [^N] |
+
+> **Source Age Note:** Documentation accessed [date] reflects [vendor/product] state as of that date. Product features, security posture, and compliance certifications may have changed. Validate currency before relying on claims.
 
 <!-- Repeat subsection for each additional system, vendor, or integration partner -->
 
@@ -484,10 +499,18 @@ Before proceeding, verify:
 
 <!-- Incident reports, news articles, and other threat intelligence referenced in the assessment -->
 
-| Finding | Source | URL | Access Date |
-|---------|--------|-----|-------------|
-| [Incident or intelligence item] | [Publication name] | [https://...] | [YYYY-MM-DD] |
-| [Incident or intelligence item] | [Publication name] | [https://...] | [YYYY-MM-DD] |
+| Finding | Source | URL | Access Date | Citation |
+|---------|--------|-----|-------------|----------|
+| [Incident or intelligence item] | [Publication name] | [https://...] | [YYYY-MM-DD] | [^N] |
+| [Incident or intelligence item] | [Publication name] | [https://...] | [YYYY-MM-DD] | [^N] |
+
+### Research Citations
+
+<!-- Full bibliographic citations for all footnote references -->
+
+[^1]: [Full citation: Author/Organization, Title, Date, URL, access date]
+[^2]: [Full citation: Author/Organization, Title, Date, URL, access date]
+[^3]: [MITRE ATT&CK technique citation: ID, Name, URL, access date]
 
 ---
 
