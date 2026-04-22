@@ -67,7 +67,6 @@ This SOP provides systematic guidance for conducting design-level security asses
 - Threat Assessment Templates ([1-vendor-template.md](../templates/lean-report/1-vendor-template.md), [2-application-template.md](../templates/lean-report/2-application-template.md), [3-infrastructure-template.md](../templates/lean-report/3-infrastructure-template.md))
 - Supporting Analysis Template ([supporting-analysis-template.md](../templates/supporting-analysis-template.md))
 - System Profile Template ([system-profile-template.md](../templates/system-profile-template.md))
-- Security Requirements Template ([security-requirements-template.md](../templates/security-requirements-template.md)) — OWASP ASVS 5.0 aligned, with OWASP AISVS for AI components
 - Reference Catalog ([reference.md](./reference.md)) — MITRE ATT&CK and ATLAS techniques, attack tree branches, risk matrix, diagram reference
 - Attack Tree Methodology
 - [MITRE ATT&CK Framework](https://attack.mitre.org/) — standard cyber threat tactics and techniques
@@ -1541,7 +1540,7 @@ The template covers the complete analytical work product (attack trees, threat c
 | Template | Use When | Location |
 |----------|----------|----------|
 | Security Requirements | Type 2/3 baseline assessments | [security-requirements-template.md](../templates/security-requirements-template.md) |
-| Change Requirements | Delta/change assessments extending baseline | [change-requirements-template.md](../templates/change-requirements-template.md) |
+| Change Requirements | Delta/change assessments extending baseline | requirements.csv (delta rows) |
 
 **Baseline + Delta Pattern:** For change assessments, maintain a frozen baseline requirements document and create a delta document with only new/modified requirements. Reference the baseline prerequisite table in the delta document to clarify which baseline requirements each delta extends.
 
