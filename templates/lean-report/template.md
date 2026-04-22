@@ -93,7 +93,6 @@ Each template includes:
 
 - [Template README](./README.md) — Additional template guidance
 - [Supporting Analysis Template](../supporting-analysis-template.md) — Full analytical work product
-- [Security Requirements Template](../security-requirements-template.md) — ASVS 5.0-aligned requirements (Type 2/3 only)
 - [SOP Methodology](../../docs/SOP.md) — Complete assessment methodology
 
 ---
