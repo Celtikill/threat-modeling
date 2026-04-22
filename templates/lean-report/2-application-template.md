@@ -5,9 +5,17 @@ author: "[Name / Role]"
 date: "[YYYY-MM-DD]"
 version: "[1.0]"
 status: "[Draft / Draft-Reviewed / Final]"
+assessor: "[Name / Role]"
+business_owner: "[Name / Title]"
 assessment_type: "Type 2: Internal Application"
+assessment_mode: "[Baseline / Delta / Re-baseline]"
+regulatory_context: "[HIPAA / 42 CFR Part 2 / Life-Safety Regulations / None]"
+life_safety_critical: "[Yes / No]"
 risk_rating: "[Critical / High / Medium / Low]"
-classification: "CONFIDENTIAL"
+classification: "[CONFIDENTIAL / Internal / Public]"
+template: "[path/to/latex-template.latex]"
+logo: "[path/to/organization-logo.png]"
+toc: true
 ---
 
 # Threat Model: [System Name] — [Context]
@@ -30,6 +38,9 @@ classification: "CONFIDENTIAL"
 | **Assessor** | [Name / Role] |
 | **Business Owner** | [Name / Title] |
 | **Status** | [Draft / Draft-Reviewed / Final] |
+| **Prior Baseline Reference** | [Link to prior baseline, if Delta/Re-baseline] |
+
+> **Source Age Notice:** Assessment sources have access dates documented in Section 7. Source age affects confidence levels.
 
 ---
 
@@ -51,6 +62,12 @@ classification: "CONFIDENTIAL"
 - **Regulatory implications:** Applicable frameworks (HIPAA, GDPR, SOC 2, etc.) and specific obligations triggered
 - **Operational impact:** Business process disruption, service availability concerns
 - **Financial exposure:** Contract penalties, breach costs, grant funding implications
+
+> **Regulatory Context:** [Cite specific regulations applicable to this assessment with links to authoritative sources. E.g., "HIPAA Security Rule — 45 CFR 164.312: https://www.ecfr.gov/current/title-45/part-164"]
+
+> **Research Citation:** [For high-sensitivity assessments, cite relevant incident research: "[Breach/incident description] [Source: public reporting, access date YYYY-MM-DD]"]
+
+> **Note:** Source age and access dates are tracked in Section 7. Assess confidence accordingly.
 
 ### Risk Quadrant Chart
 
