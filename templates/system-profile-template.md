@@ -1,10 +1,23 @@
+---
+title: "Threat Model Intake: [System/Vendor Name]"
+subtitle: "Assessment Request Form"
+date: "[YYYY-MM-DD]"
+version: "1.0"
+requestor: "[Name / Role]"
+business_owner: "[Name / Title]"
+life_safety_critical: "[Yes / No / Unknown]"
+regulatory_context: "[HIPAA / 42 CFR Part 2 / SOC 2 / ISO 27001 / None / Unknown]"
+assessment_type: "[Type 1 / Type 2 / Type 3 / TBD]"
+priority: "[Standard / Expedited]"
+---
+
 # Threat Model Intake Form
 
 Complete this form to request a threat model assessment. For guidance on each field, see the [Consumer Guide](../docs/consumer-guide.md#completing-the-intake-form).
 
-> **A Jira issue type for streamlined intake is coming soon.** In the meantime, complete this form and submit it to the Security Architecture Team.
-
 > **Accountability:** The Requestor/Owner is accountable for the quality of intake information. The Security Analyst is responsible for conducting the assessment. Incomplete intake produces assumptions in the assessment, which may lead to inaccurate findings.
+
+> **Life-Safety Criticality:** Systems supporting crisis intervention, emergency services, or patient safety may require expedited assessment paths and additional regulatory review. Mark **Life-Safety** in A3 if applicable.
 
 *Complete Part A (all types). If you selected an assessment type in A2, complete the matching part (1, 2, or 3). If unsure, complete whichever sections you can — the analyst will guide you. Then complete Part E.*
 
@@ -75,13 +88,17 @@ Complete this form to request a threat model assessment. For guidance on each fi
 
 ### A4. Data Inventory
 
-| Data Type | Sensitivity | Volume | Regulatory Driver |
-|-----------|-------------|--------|-------------------|
-| | [ ] Critical / High / Medium / Low | | |
-| | [ ] Critical / High / Medium / Low | | |
-| | [ ] Critical / High / Medium / Low | | |
+| Data Type | Sensitivity | Volume | Regulatory Driver | Data Source | Last Updated |
+|-----------|-------------|--------|-------------------|-------------|--------------|
+| | [ ] Critical / High / Medium / Low | | | [e.g., "Data warehouse inventory", "API schema", "Manual estimate"] | [YYYY-MM-DD] |
+| | [ ] Critical / High / Medium / Low | | | | |
+| | [ ] Critical / High / Medium / Low | | | | |
 
 <!-- Add rows as needed -->
+
+> **Data Source Documentation:** Identify the source of data inventory information (e.g., "Data catalog export from [date]", "Schema documentation [URL]", "Manual estimate by [Name]"). This enables the analyst to assess source age and validate currency.
+
+> **Regulatory Driver Guidance:** Check all applicable frameworks. Life-safety data (e.g., crisis caller records) may trigger additional obligations. Consult compliance if uncertain.
 
 ### A5. Integration and Data Flow
 
@@ -269,15 +286,40 @@ List all systems this system connects to:
 
 ---
 
+## Part D: Evidence Sources and Documentation
+
+*Document the sources of information provided in this intake. This enables the analyst to assess source age, validate claims, and identify assumptions.*
+
+### Evidence Inventory
+
+| Information Type | Source Document | Location/URL | Date of Source | Confidence |
+|------------------|-----------------|--------------|----------------|------------|
+| System description | [e.g., "Architecture doc", "Wiki page", "Verbal"] | [Link or path] | [YYYY-MM-DD] | [High/Med/Low] |
+| Data inventory | [e.g., "Data catalog export", "Schema docs", "Estimate"] | [Link or path] | [YYYY-MM-DD] | [High/Med/Low] |
+| Integration details | [e.g., "API docs", "Network diagram", "Unknown"] | [Link or path] | [YYYY-MM-DD] | [High/Med/Low] |
+| Access control info | [e.g., "IAM export", "Access review doc", "Not documented"] | [Link or path] | [YYYY-MM-DD] | [High/Med/Low] |
+| Security controls | [e.g., "SOC 2 report", "Security whitepaper", "Unknown"] | [Link or path] | [YYYY-MM-DD] | [High/Med/Low] |
+
+> **Source Age Impact:** Older sources (>6 months) may not reflect current system state. The analyst will flag stale sources as assumptions in the assessment.
+
+> **Confidence Level Guidance:**
+> - **High:** Authoritative source (official documentation, automated export) recently verified
+> - **Medium:** Informal source (wiki, tribal knowledge) or older authoritative source
+> - **Low:** Unverified source, estimate, or significant gaps in documentation
+
+---
+
 ## Part E: Attachments Checklist
 
-| Artifact | Attached? | Notes |
-|----------|-----------|-------|
-| Architecture / data flow diagram | [ ] | |
-| scope.txt (for Type 3 — infrastructure inventory format) | [ ] | |
-| Vendor security documentation (for Type 1) | [ ] | |
-| Previous assessment reports (if reassessment) | [ ] | |
-| Relevant audit findings | [ ] | |
-| API specifications | [ ] | |
-| Network topology diagram | [ ] | |
-| Personnel access inventory (IAM export, access review documentation) | [ ] | |
+| Artifact | Attached? | Source Date | Notes |
+|----------|-----------|-------------|-------|
+| Architecture / data flow diagram | [ ] | [YYYY-MM-DD] | |
+| scope.txt (for Type 3 — infrastructure inventory format) | [ ] | [YYYY-MM-DD] | |
+| Vendor security documentation (for Type 1) | [ ] | [YYYY-MM-DD] | |
+| Previous assessment reports (if reassessment) | [ ] | [YYYY-MM-DD] | |
+| Relevant audit findings | [ ] | [YYYY-MM-DD] | |
+| API specifications | [ ] | [YYYY-MM-DD] | |
+| Network topology diagram | [ ] | [YYYY-MM-DD] | |
+| Personnel access inventory (IAM export, access review documentation) | [ ] | [YYYY-MM-DD] | |
+| Data classification matrix | [ ] | [YYYY-MM-DD] | |
+| Integration inventory | [ ] | [YYYY-MM-DD] | |
