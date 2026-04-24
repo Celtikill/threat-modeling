@@ -6,9 +6,9 @@
 
 This document defines **integrated feedback loops** within the threat modeling framework — a lightweight mechanism where implementation-level findings (particularly from code review in Phase 2B) directly inform and update design-level threat analysis, attack trees, and requirements.
 
-**Core Principle:** Vulnerabilities discovered during code review are not primary deliverables. They are **evidence** that validates, elevates, or reveals gaps in the architectural threat model. The feedback loop ensures these observations immediately update the threat analysis, requirements, and findings catalog.
+**Core Principle:** Vulnerabilities discovered during code review are not primary deliverables. They are **evidence** that validates (Reinforces), elevates severity (Elevates), or reveals gaps (Reveals) in the architectural threat model. The feedback loop ensures these observations immediately update the threat analysis, requirements, and findings catalog.
 
-**Risk-Based Reporting:** While vulnerability enumeration is not the framework's primary purpose, **Critical and High-risk vulnerabilities are reported as findings according to their risk level.** These findings are framed as incidental discoveries that reveal or reinforce architectural threats and prioritize requirements. They do not stand alone—they are always threat-rooted and requirement-aligned.
+**Risk-Based Reporting:** While vulnerability enumeration is not the framework's primary purpose, **Critical and High-risk vulnerabilities are reported as findings according to their risk level.** These findings are framed as incidental discoveries that reinforce (Reinforces), elevate (Elevates), or reveal (Reveals) architectural threats and prioritize requirements. They do not stand alone—they are always threat-rooted and requirement-aligned.
 
 **Workflow:** Code Finding → Threat Alignment (existing or new) → Risk Adjustment → Requirement Update → Documentation Refresh
 
@@ -213,11 +213,12 @@ Only truly exceptional findings warrant informal sprint escalation:
 
 **Integrated feedback loops** treat code review findings as architectural evidence:
 
-1. **Findings reinforce threats** — Vulns demonstrate exploitability and support risk ratings
-2. **Novel vectors expand threats** — New attack classes added to attack tree immediately
-3. **Requirements adapt** — New requirements added, existing ones elevated based on evidence
-4. **No process pause** — Updates occur inline during sprint
-5. **Architecture first** — Threats and requirements are primary; findings are supporting evidence
+1. **Findings reinforce threats (Reinforces)** — Vulns demonstrate exploitability and support risk ratings
+2. **Findings elevate threats (Elevates)** — Evidence demonstrates a threat is more severe than initially assessed
+3. **Findings reveal gaps (Reveals)** — Uncatalogued attack surfaces, components, or data flows are added to the threat model
+4. **Requirements adapt** — New requirements added, existing ones elevated based on evidence
+5. **No process pause** — Updates occur inline during sprint
+6. **Architecture first** — Threats and requirements are primary; findings are supporting evidence
 
 This maintains the framework's architectural focus while ensuring implementation-level observations directly inform the design-level security model.
 

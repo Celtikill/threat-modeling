@@ -75,7 +75,7 @@ assessment/
 | `Finding_ID` | Unique identifier (F-XXX) | F-001 |
 | `Source_Location` | Code/evidence location | src/api/handlers.py:89 |
 | `Threat_Ref` | Related Threat_ID(s) | T-001 |
-| `Threat_Alignment_Type` | How finding relates to threat | Reinforces / Novel / Expands |
+| `Threat_Alignment_Type` | How finding relates to threat | Reinforces / Elevates / Reveals |
 | `Description` | What was found | SQL injection via string concatenation |
 | `Severity` | Finding severity | High |
 | `Status` | Current state | Open |
@@ -83,6 +83,14 @@ assessment/
 | `Responsible_Party` | Who fixes it | Platform Engineering |
 | `Due_Date` | Target remediation date | 2025-06-01 |
 | `Notes` | Additional context | Elevates V6.1 to Required; see T-007 evidence |
+
+#### Threat_Alignment_Type Values
+
+| Value | Definition | Threat_Ref | Typical Source |
+|-------|-----------|------------|----------------|
+| **Reinforces** | Finding provides evidence that validates or confirms an existing threat is present/exploitable in the system. | Existing `T-XXX` | Code review, config audit |
+| **Elevates** | Finding demonstrates that an existing threat is more severe than initially assessed, increasing its likelihood or impact. | Existing `T-XXX` | Documentation review, design review, policy analysis |
+| **Reveals** | Finding exposes a gap in the threat model — an attack surface, component, or data flow that was not previously catalogued and requires a new threat (or new attack-tree branch). | `NEW T-YYY` or existing `T-XXX` | Code review of undocumented components, shadow APIs, hidden integrations |
 
 ### requirements.csv
 
@@ -129,11 +137,11 @@ Code Review Discovery
     ├──► Maps to existing threat ─────┐
     │   (Reinforces risk rating)       │
     │                                  ▼
-    ├──► Novel attack vector ───────► Update threats.csv
-    │   (Creates new threat)           │ Add Evidence_From_Code_Review
-    │                                  │ Document Source_Discovery
+    ├──► Risk elevation ─────────────► Update threats.csv
+    │   (Threat worse than rated)      │ Add Evidence_From_Code_Review
+    │                                  │
     │                                  ▼
-    └──► Attack surface expansion ───► Update findings.csv
+    └──► Uncatalogued attack surface ─► Update findings.csv
         (Undocumented component)       │ Set Threat_Alignment_Type
                                        │ Link to Threat_Ref
                                        ▼
@@ -148,9 +156,9 @@ Code Review Discovery
 - Determine novelty: Is this vector already in the attack tree?
 
 **Step 2: Threat Alignment**
-- **Reinforces existing:** Add evidence to `Evidence_From_Code_Review`
-- **Novel vector:** Add new threat row; mark `Source_Discovery`
-- **Expands surface:** Add finding with `Threat_Alignment_Type = Expands`
+- **Reinforces existing threat:** Add evidence to `Evidence_From_Code_Review`; set `Threat_Alignment_Type = Reinforces`
+- **Elevates existing threat:** Set `Threat_Alignment_Type = Elevates`; consider elevating requirement priority
+- **Reveals uncatalogued attack surface:** Add new threat row; mark `Source_Discovery`; set `Threat_Alignment_Type = Reveals`
 
 **Step 3: Requirement Impact**
 - Update `requirements.csv` Priority (elevate) or add new row

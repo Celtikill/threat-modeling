@@ -520,11 +520,17 @@ Before proceeding, verify:
 
 *Implementation-level findings from code review that validate, elevate, or reveal gaps in the design-level threat analysis. Findings are evidence, not primary deliverables — they reinforce the threat model. **Critical and High-risk findings are reported according to their risk level** as incidental discoveries that reveal threats and prioritize requirements.*
 
+**Threat Alignment Type Definitions:**
+
+- **Reinforces** — Finding validates/demonstrates an existing threat is present or exploitable (code/config evidence)
+- **Elevates** — Finding demonstrates an existing threat is more severe than initially assessed (design/doc evidence)
+- **Reveals** — Finding exposes uncatalogued attack surface requiring a new threat or attack-tree branch
+
 **Discovery Log:**
 
 | Finding ID | Source Location | Finding Summary | Threat Alignment | Evidence Value | Requirement Impact | Status |
 |------------|-----------------|-----------------|------------------|----------------|-------------------|--------|
-| F-XXX | src/path/file.py:NN | [Brief description] | T-XXX (existing) or NEW T-YYY | Reinforces/Elevates/Reveals | [Priority change or new req] | Documented |
+| F-XXX | src/path/file.py:NN | [Brief description] | T-XXX (existing) or NEW T-YYY | Reinforces / Elevates / Reveals | [Priority change or new req] | Documented |
 
 **Novel Attack Vectors (New Threats Added):**
 
