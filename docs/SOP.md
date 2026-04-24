@@ -664,12 +664,12 @@ Requirement Update → Inline Documentation Refresh
 
 For each vulnerability or security-relevant finding, determine:
 
-| Question | Finding Maps To... |
-|----------|-------------------|
-| Is this attack vector already represented in the existing attack tree for this system? | **Existing Threat** — Document as Finding; add evidence to threat |
-| Is this a new attack vector, component, or data flow not previously analyzed? | **Novel Threat** — Add to attack tree; complete threat analysis |
-| Does this exist in an undocumented component or endpoint? | **Attack Surface Expansion** — Update Phase 1 data flows; add threat |
-| Does this demonstrate a threat is more severe than initially rated? | **Risk Reinforcement** — Consider elevation; update threat evidence |
+| Question | Finding Maps To... | CSV `Threat_Alignment_Type` |
+|----------|-------------------|------------------------------|
+| Is this attack vector already represented in the existing attack tree for this system? | **Existing Threat** — Document as Finding; add evidence to threat | `Reinforces` |
+| Does this demonstrate a threat is more severe than initially rated? | **Risk Reinforcement** — Consider elevation; update threat evidence | `Elevates` |
+| Is this a new attack vector, component, or data flow not previously analyzed? | **Novel Threat** — Add to attack tree; complete threat analysis | `Reveals` |
+| Does this exist in an undocumented component or endpoint? | **Attack Surface Expansion** — Update Phase 1 data flows; add threat | `Reveals` |
 
 **Step 2: Inline Updates**
 
@@ -677,9 +677,9 @@ Update CSVs and documentation immediately upon finding:
 
 | Finding Type | threats.csv | findings.csv | requirements.csv |
 |-------------|-------------|--------------|------------------|
-| Maps to existing threat | Add Evidence column entry | Add finding with Threat_Ref | Elevate priority if warranted |
-| Novel threat (new branch) | Add new threat row | Add finding with Threat_Ref | Add new requirement(s) |
-| Attack surface expansion | Add new threat row + update branches | Add finding | Add/update requirements |
+| Reinforces existing threat | Add Evidence column entry | Add finding with `Threat_Alignment_Type = Reinforces` | Elevate priority if warranted |
+| Elevates existing threat | Update threat evidence / risk rating | Add finding with `Threat_Alignment_Type = Elevates` | Elevate priority |
+| Reveals uncatalogued attack surface | Add new threat row + update branches | Add finding with `Threat_Alignment_Type = Reveals` | Add/update requirements |
 
 **Step 3: Documentation Format**
 
@@ -688,16 +688,29 @@ When a finding reinforces an existing threat:
 ```markdown
 **Finding:** SQL injection in user search (src/search/handlers.py:89)
 **Threat Alignment:** T-007 (Branch 6.2)
+**Threat_Alignment_Type:** Reinforces
 **Evidence Value:** String concatenation confirms exploitability
 **Risk Impact:** Reinforces High likelihood rating
 **Requirement Impact:** Elevate V6.1 to Required (was Recommended)
 ```
 
-When a finding creates a new threat:
+When a finding elevates an existing threat:
+
+```markdown
+**Finding:** Cross-center crisis data visible in warehouse (Design Doc §12.2)
+**Threat Alignment:** T-040 (Data Exposure)
+**Threat_Alignment_Type:** Elevates
+**Evidence Value:** Fivetran integration bypasses isolation controls
+**Risk Impact:** Elevates from High to Critical
+**Requirement Impact:** Elevate V4.2 to Required (was Recommended)
+```
+
+When a finding reveals uncatalogued attack surface:
 
 ```markdown
 **Finding:** GraphQL query depth DoS (src/graphql/schema.py:45)
 **Threat Alignment:** NEW — T-015 (GraphQL Resource Exhaustion)
+**Threat_Alignment_Type:** Reveals
 **Attack Tree Update:** Add Branch 6.5 "GraphQL Layer Exploitation"
 **Evidence Value:** First demonstration of GraphQL attack surface
 **Requirement Impact:** Add V6.8 (GraphQL query depth limiting)
@@ -918,6 +931,41 @@ Assess each applicable attack tree branch for your assessment type. See [referen
 
 **Attack Tree Logic:** Branches represent alternative attack paths (OR logic) — the attacker can succeed via any single branch. See [attack-trees/README.md](./attack-trees/README.md#attack-tree-methodology) for gate logic details and AND gate usage.
 
+**Conceptual Intermediate Nodes:**
+
+Between branch roots and threat ID leaves, include **conceptual intermediate nodes** describing attack vectors in scope but not yet catalogued. These nodes improve structural completeness, enable gap analysis for delta assessments, and communicate attack logic to non-technical stakeholders.
+
+```text
+Goal: Compromise Organizational Data Through Application
+├── Branch 1: Application Layer Exploitation
+│   ├── 1.1 Access Control Bypass
+│   │   ├── Unreviewed classes with sharing violations
+│   │   ├── Triple security bypass pattern
+│   │   └── T-001: SDLC Failure — Apex Sharing Violation
+│   └── 1.2 Injection Attacks
+│       ├── Dynamic SOQL construction
+│       ├── Input validation bypass
+│       └── T-011: SOQL Injection
+```
+
+**Branch-Level Risk Summaries:**
+
+After each top-level branch, include a summary paragraph:
+- Count of Critical/High threats in the branch
+- Highest-impact attack path described concisely
+- Recommended action specific to the branch
+
+Example:
+> **Three High-risk threats** in this branch — access control bypass, injection attacks, and client-side exploitation — indicate systemic gaps in secure development practices and input validation. Action needed: Review secure coding standards, implement static analysis, and validate all user inputs.
+
+**Attack Tree Depth:**
+
+| Branch Threat Count | Minimum Depth |
+|---------------------|---------------|
+| 1-4 threats | 2 levels (branch + leaves) |
+| 5-10 threats | 3 levels (branch + sub-branch + leaves) |
+| 11+ threats | 4 levels with conceptual intermediate nodes |
+
 **Worked Example:** See the [ExampleCorp Supporting Analysis](../examples/fictional-vendor-assessment/examplecorp-supporting-analysis.md#attack-tree-analysis) for a worked example.
 
 ### 3.2 MITRE ATT&CK and ATLAS Mapping
@@ -1006,6 +1054,49 @@ Before proceeding to Phase 4, confirm the following are addressed:
 - [ ] High-risk threats mapped to MITRE ATT&CK techniques
 - [ ] Likelihood and impact levels assigned (High/Medium/Low)
 - [ ] Risk levels calculated (Critical/High/Medium/Low)
+- [ ] Conceptual intermediate nodes included for branches with 5+ threats
+- [ ] Branch-level risk summaries present after each top-level branch
+
+---
+
+## Gate 3-4: CSV Template Compliance
+
+**Gate between Phase 3 and Phase 4**
+
+**Objective:** Validate threats.csv completeness and template compliance before it becomes the canonical source for all downstream deliverables.
+
+**Rationale:** Markdown deliverables are derived from CSVs. If the CSV is malformed, incomplete, or non-compliant at this stage, all downstream artifacts inherit the defect. This gate prevents cascading quality issues.
+
+### Gate 3-4 Validation Checks
+
+| # | Check | Failure Impact |
+|---|-------|----------------|
+| 1 | CSV column count matches template | Missing fields break downstream parsing |
+| 2 | No STRIDE column or references | STRIDE creates categorization confusion with MITRE |
+| 3 | Requirement reference column uses org-specific framework when canonical repo provides one | Semantic mismatch between column name and content |
+| 4 | Source_Discovery values in canonical set only | Internal process terminology leaks into deliverables |
+| 5 | Wiki references use canonical format ("System Wiki - Title") | File paths won't resolve for document consumers |
+| 6 | CSV content properly quoted/escaped | Unescaped commas break rendering |
+| 7 | No execution IDs, .tmp paths, or meta-references | Customer-facing deliverables must be self-contained |
+| 8 | All Critical/High threats mapped to requirements | Regulatory traceability gap |
+| 9 | Architectural vs implementation distinction documented | Process gaps not identified |
+| 10 | Domain-specific risk elevations applied | Under-rated threats in regulated environments |
+| 11 | Tree-CSV consistency: all T-IDs in attack tree exist in CSV | Structural mismatch between tree and catalog |
+
+### Gate Failure Handling
+
+If any check fails:
+
+1. Log specific failures in state file
+2. Return to Phase 3 for corrections
+3. Re-run Gate 3-4 after fixes
+4. Optionally bypass gate with documented rationale (not recommended)
+
+### Gate Pass Criteria
+
+- [ ] All 11 checks pass OR bypassed with documented rationale
+- [ ] threats.csv written to `data/threats.csv`
+- [ ] Gate status recorded in assessment state
 
 ---
 
@@ -1108,21 +1199,27 @@ Transfer threat analysis results into the Supporting Analysis document:
 
 ### 4.4 Structured Data Capture (CSV Source of Truth)
 
-**CSV-First Workflow:** Populate structured CSV templates during analysis to serve as the source of truth when drafting markdown deliverables. This enables validation, traceability, and reuse across assessments.
+**CSV-First Workflow:** Populate structured CSV templates during analysis to serve as the source of truth when drafting markdown deliverables. CSVs are canonical; markdown is derived from CSVs only. No markdown generation occurs until Gate 3-4 passes.
 
 **Workflow:**
 
 ```
-Step 1: During analysis, populate CSV files:
+Step 1: During Phase 3, populate CSV files:
     - threats.csv ← from attack tree analysis
     - findings.csv ← from evidence review
     - requirements.csv ← from control mapping
 
-Step 2: When drafting markdown, reference CSV data:
+Step 2: Pass Gate 3-4 (CSV template compliance):
+    - Validate column count, no meta-references, proper escaping
+    - Confirm tree-CSV consistency
+    - Do not proceed to markdown until gate passes
+
+Step 3: When drafting markdown in Phase 5, reference CSV data only:
     - Copy table rows into markdown documents
     - CSV data is authoritative; markdown is presentation
+    - No direct reference to Phase 2B findings or state files
 
-Step 3: Validate alignment (optional):
+Step 4: Validate alignment (optional):
     - Use consolidation tools to verify CSV → markdown alignment
     - Discrepancies flag documentation drift
 ```
@@ -1170,6 +1267,7 @@ Delta assessments populate the non-baseline CSVs with only new/changed items, th
 
 Before proceeding to Phase 5, confirm the following are addressed:
 
+- [ ] Gate 3-4 passed (CSV template compliance validated)
 - [ ] Threat catalog complete with all applicable branches
 - [ ] Findings catalog populated with MITRE mappings
 - [ ] Assumptions register includes all unvalidated claims with confidence levels
@@ -1199,7 +1297,23 @@ Before proceeding to Phase 5, confirm the following are addressed:
 | Medium | Industry standards, third-party assessments, public documentation |
 | Low | Inferred from general practices, incomplete information, assumptions |
 
-### 5.2 Executive Summary
+### 5.2 Markdown Generation from CSVs
+
+**CSV-Only Source Principle:** All markdown deliverables in Phase 5 are generated exclusively from the canonical CSV files produced in Phase 3 and Phase 4. Markdown is presentation; CSV is authority.
+
+**Rules:**
+- Threat tables: populated from `data/threats.csv`
+- Finding references: populated from `data/findings.csv`
+- Requirements: populated from `data/requirements.csv`
+- Attack trees: populated from Phase 3 conceptual tree + T-XXX mappings from CSV
+
+**Forbidden in Markdown:**
+- Direct references to Phase 2B code review agent outputs
+- Execution IDs or assessment tracking
+- Internal file paths (`.tmp/`, state files)
+- Meta-documentation references (lessons learned, process notes)
+
+### 5.3 Executive Summary
 
 The threat model report must include an Executive Summary that follows a standardized structure to ensure consistent communication of critical findings to leadership.
 

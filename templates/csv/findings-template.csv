@@ -1,4 +1,4 @@
 Finding_ID,Source_Location,Threat_Ref,Threat_Alignment_Type,Description,Severity,Status,Evidence_Location,Responsible_Party,Due_Date,Notes
-F-001,"src/path/file.py:NN","T-001","Reinforces","[Vulnerability or pattern found during code review]","[Critical/High/Medium/Low/Info]","[Open/In Progress/Remediated/Accepted]","[Path to evidence or 'See Section X']","[Team/Individual responsible]","[YYYY-MM-DD or 'N/A']","[Additional context - e.g., elevates requirement V6.1]"
-F-002,"","","","","","","","","",""
-F-003,"","","","","","","","","",""
+F-001,"src/path/file.py:NN","T-001","Reinforces","[Vulnerability or pattern found during code review that validates an existing threat]","[Critical/High/Medium/Low/Info]","[Open/In Progress/Remediated/Accepted]","[Path to evidence or 'See Section X']","[Team/Individual responsible]","[YYYY-MM-DD or 'N/A']","[Additional context - e.g., elevates requirement V6.1]"
+F-002,"src/path/design.md:NN","T-002","Elevates","[Finding that demonstrates an existing threat is more severe than initially assessed]","[Critical/High/Medium/Low/Info]","[Open/In Progress/Remediated/Accepted]","[Path to evidence or 'See Section X']","[Team/Individual responsible]","[YYYY-MM-DD or 'N/A']","[Additional context]"
+F-003,"src/path/undocumented.py:NN","NEW T-YYY","Reveals","[Finding that exposes uncatalogued attack surface requiring a new threat or branch]","[Critical/High/Medium/Low/Info]","[Open/In Progress/Remediated/Accepted]","[Path to evidence or 'See Section X']","[Team/Individual responsible]","[YYYY-MM-DD or 'N/A']","[Additional context]"
